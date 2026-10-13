@@ -53,7 +53,7 @@ export default function HeroComponent() {
     >
       {/* Full-Width Background Image */}
       <Image
-        src="/Images/HeroImage.png"
+        src="/Images/HeroImage.webp"
         alt="Luxury modern kitchen interior"
         fill
         priority

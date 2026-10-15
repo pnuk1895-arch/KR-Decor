@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -58,11 +57,11 @@ export default function HeroComponent() {
         fill
         priority
         sizes="100vw"
-        className="absolute inset-0 z-[-30] object-cover object-center"
+        className="absolute inset-0 -z-30 object-cover object-center"
       />
 
       {/* Dark Overlay */}
-      <div className="pointer-events-none absolute inset-0 z-[-20] bg-black/55" />
+      <div className="pointer-events-none absolute inset-0 -z-20 bg-black/55" />
 
       {/* Cursor-Following Background Glow */}
       <div

@@ -15,3 +15,16 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {};
+
+// module.exports = nextConfig;
+
+
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   reactCompiler: true,
+// };
+
+// export default nextConfig;

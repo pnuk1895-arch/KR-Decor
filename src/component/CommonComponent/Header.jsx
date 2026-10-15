@@ -84,7 +84,7 @@ export default function Header() {
                 priority
                 sizes="(min-width: 1536px) 160px, (min-width: 1280px) 144px, (min-width: 1024px) 128px, (min-width: 768px) 112px, (min-width: 640px) 96px, 80px"
                 className={`object-contain object-left transition-all duration-300 ${menuOpen ? "brightness-0" : ""
-                  }`}
+                  } ${scrolled ? "brightness-0 font-black!" : "" }   `}
               />
             </Link>
           </div>

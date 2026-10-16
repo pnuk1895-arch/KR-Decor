@@ -1,5 +1,5 @@
 import Header from "@/component/CommonComponent/Header";
-import About from "@/component/HomeComponent/About";
+import AboutSection from "@/component/HomeComponent/About";
 import HeroComponent from "@/component/HomeComponent/HeroComponent";
 import ServicesSection from "@/component/HomeComponent/Services";
 import SolutionsSection1 from "@/component/HomeComponent/MoreDesign1";
@@ -16,7 +16,7 @@ export default function Page() {
       <Header />
       <main>
         <HeroComponent />
-        <About />
+        <AboutSection />
         <SolutionsSection1 />
         <ServicesSection />
         <Suspense

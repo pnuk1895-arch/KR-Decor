@@ -1,5 +1,4 @@
-
-
+"use client"
 
 import Image from "next/image";
 import Link from "next/link";
@@ -109,7 +108,7 @@ function ServiceImageCard({ image }) {
 export default function ServicesSection() {
     return (
         <section className="w-full bg-white text-black">
-            <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24 2xl:px-14">
+            <div className="mx-auto max-w-screen-2xl px-5 py-16 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
                 {/* Section heading */}
                 <div className="mx-auto max-w-212.5 border-b border-black/4 pb-5 text-center sm:pb-7">
                     <h2 className="font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-[56px]">

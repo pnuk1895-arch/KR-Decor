@@ -1,3 +1,5 @@
+"use client"
+
 
 import Image from "next/image";
 import Link from "next/link";
@@ -17,19 +19,19 @@ const navigationLinks = [
 const marqueeItems = Array.from({ length: 2 });
 
 const headingClass =
-    "mb-5 text-[12px] font-semibold uppercase leading-[1.4] tracking-[0.1em] text-[#777777] sm:mb-6 sm:text-[11px] sm:tracking-[0.18em]";
+    "mb-5 text-[12px] font-semibold uppercase leading-[1.4] tracking-[0.1em] text-[#777777] sm:mb-2 sm:text-[14px] sm:tracking-[0.1em]";
 
 const linkClass =
-    "w-fit text-[12px] font-semibold uppercase scale-x-110 leading-[1.65] tracking-[0.025em] text-[#171717] transition-colors duration-300 hover:text-[#858585] sm:text-[11px] sm:leading-[1.8]";
+    "w-fit text-[12px] font-semibold uppercase scale-x-110 leading-[1.65] tracking-[0.025em] text-[#171717] transition-colors duration-300 hover:text-[#858585] sm:text-[13px] sm:leading-[1.8]";
 
 export default function Footer() {
     return (
         <footer className="overflow-hidden bg-white text-[#171717]">
             {/* Footer content */}
-            <div className="mx-auto w-full max-w-[1600px] px-5 pb-12 pt-16 sm:px-8 sm:pb-14 sm:pt-20 md:pb-16 md:pt-24 lg:px-12 lg:pt-28 2xl:px-14">
-                <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-[1.25fr_0.8fr_0.65fr_1fr] lg:gap-x-12">
+            <div className="mx-auto w-full max-w-screen-2xl px-5 pb-12 pt-16 sm:px-8 sm:pb-14 sm:pt-20 md:px-10 md:pb-16 md:pt-24 lg:px-12 lg:pt-28 xl:px-18">
+                <div className="grid grid-cols-2 gap-x-10 gap-y-12 sm:gap-y-12 lg:grid-cols-[1.25fr_0.8fr_0.65fr_1fr] lg:gap-x-12">
                     {/* Brand */}
-                    <div className="min-w-0 sm:col-span-2 lg:col-span-1">
+                    <div className="min-w-0 col-span-2 lg:col-span-1">
                         <Link
                             href="/"
                             aria-label="KR Decor home"
@@ -44,7 +46,7 @@ export default function Footer() {
                             />
                         </Link>
 
-                        <p className="mt-5 max-w-85 text-[11px] font-normal leading-[1.8] tracking-[0.005em] text-[#777777] sm:mt-6 sm:text-[12px] sm:leading-[1.85]">
+                        <p className="mt-5 max-w-85 text-[13px] font-normal leading-[1.8] tracking-[0.005em] text-[#777777] sm:mt-6 sm:text-[13px] sm:leading-[1.85]">
                             Specializing in architecture design, full home interiors,
                             modular kitchens, wardrobes, and TV units with quiet luxury
                             and precision craft.
@@ -72,77 +74,77 @@ export default function Footer() {
                             </Link>
                         </div>
                     </div>
-                    <div className="flex flex-row">
-                        {/* Navigation */}
-                        <nav aria-label="Footer navigation" className="min-w-0">
-                            <h2 className={headingClass}>Navigation</h2>
 
-                            <ul className="flex flex-col items-start gap-1.75 sm:gap-2">
-                                {navigationLinks.map((item) => (
-                                    <li key={item.label} className="max-w-full">
-                                        <Link href={item.href} className={linkClass}>
-                                            {item.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
+                    {/* Navigation */}
+                    <nav aria-label="Footer navigation" className="min-w-0">
+                        <h2 className={headingClass}>Navigation</h2>
 
-                        {/* Social */}
-                        <div className="min-w-0">
-                            <h2 className={headingClass}>Follow Us</h2>
-
-                            <ul className="flex flex-col items-start gap-1.75 sm:gap-2">
-                                <li>
-                                    <Link
-                                        href="https://www.instagram.com/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={linkClass}
-                                    >
-                                        Instagram
+                        <ul className="flex flex-col items-start gap-1.75 sm:gap-2">
+                            {navigationLinks.map((item) => (
+                                <li key={item.label} className="max-w-full">
+                                    <Link href={item.href} className={linkClass}>
+                                        {item.label}
                                     </Link>
                                 </li>
+                            ))}
+                        </ul>
+                    </nav>
 
-                                <li>
-                                    <Link
-                                        href="https://www.facebook.com/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={linkClass}
-                                    >
-                                        Facebook
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                    {/* Social */}
+                    <div className="min-w-0">
+                        <h2 className={headingClass}>Follow Us</h2>
 
+                        <ul className="flex flex-col items-start gap-1.75 sm:gap-2">
+                            <li>
+                                <Link
+                                    href="https://www.instagram.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={linkClass}
+                                >
+                                    Instagram
+                                </Link>
+                            </li>
+
+                            <li>
+                                <Link
+                                    href="https://www.facebook.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={linkClass}
+                                >
+                                    Facebook
+                                </Link>
+                            </li>
+                        </ul>
                     </div>
 
                     {/* Contact */}
-                    <div className="min-w-0 sm:col-span-2 lg:col-span-1">
+                    <div className="min-w-0 col-span-2 lg:col-span-1">
                         <h2 className={headingClass}>Studio Address &amp; Contact</h2>
 
-                        <address className="text-[10px] font-semibold not-italic uppercase leading-[1.8] tracking-[0.015em] text-[#171717] sm:text-[11px] sm:leading-[1.85]">
+                        <address className="text-[12px] font-semibold not-italic uppercase leading-[1.8] tracking-[0.015em] text-[#171717] sm:text-[13px] sm:leading-[1.85]">
                             <p>F Block, Plot Number 160,</p>
                             <p>Jasola Apollo,</p>
                             <p>New Delhi - India</p>
                         </address>
 
                         <div className="mt-4 flex flex-col items-start gap-2">
-                            <a
+                            <Link
                                 href="tel:+919958384263"
-                                className="wrap-break-word text-[10px] font-semibold leading-[1.8] tracking-[0.005em] text-[#171717] transition-colors hover:text-[#858585] sm:text-[11px]"
+                                target="_blank"
+                                className="wrap-break-word text-[13px] font-semibold leading-[1.8] tracking-[0.005em] text-[#171717] transition-colors hover:text-[#858585] sm:text-[13px]"
                             >
                                 Call / WhatsApp: +91 99583 84263
-                            </a>
+                            </Link>
 
-                            <a
+                            <Link
                                 href="mailto:contact@krdecor.in"
-                                className="break-all text-[10px] font-normal leading-[1.8] text-[#777777] transition-colors hover:text-[#171717] sm:text-[11px]"
+                                target="_blank"
+                                className="break-all text-[13px] font-semibold leading-[1.8] text-[#777777] transition-colors hover:text-[#171717] sm:text-[14px]"
                             >
                                 contact@krdecor.in
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -151,7 +153,7 @@ export default function Footer() {
             {/* Large animated marquee */}
             <div
                 aria-label="Get in touch with KR Decor"
-                className="group block overflow-hidden border-y border-[#EEEEEE] py-8 sm:py-10 md:py-12 lg:py-14"
+                className="group block overflow-hidden py-14 sm:py-10 md:py-12 lg:py-14"
             >
                 <div className="footer-marquee flex w-max">
                     {marqueeItems.map((_, index) => (
@@ -169,10 +171,10 @@ export default function Footer() {
                                         <span className="italic">
                                             GET IN
                                         </span>
-                                        <span className="pl-10" >TOUCH</span>
+                                        <span className="pl-3 sm:pl-6 xl:pl-10 " >TOUCH</span>
                                     </span>
 
-                                    <span className="relative -top-1 text-base font-normal text-[#A5A5A5] sm:text-2xl md:text-3xl">
+                                    <span className="relative -top-1 text-3xl font-normal text-[#A5A5A5] sm:text-2xl md:text-3xl">
                                         ✦
                                     </span>
                                 </span>
@@ -185,11 +187,11 @@ export default function Footer() {
             {/* Copyright and legal links */}
             <div className="mx-auto max-w-[1600px] px-6 pb-7 pt-5 sm:px-8 sm:pb-8 sm:pt-6 md:px-10 lg:px-16 xl:px-20">
                 <div className="flex flex-col items-center gap-3 border-t border-[#EEEEEE] pt-5 text-center">
-                    <p className="text-[9px] font-normal uppercase leading-[1.7] tracking-[0.12em] text-[#777777] sm:text-[10px] sm:tracking-[0.14em]">
+                    <p className="text-[12px] font-medium uppercase leading-[1.3] tracking-[0.12em] text-[#777777] sm:text-[12px] sm:tracking-[0.14em]">
                         © 2026 KR Decor. All rights reserved.
                     </p>
 
-                    <p className="text-[9px] font-normal leading-[1.7] text-[#777777] sm:text-[10px]">
+                    <p className="text-[11px] font-normal leading-[1.7] text-[#777777] sm:text-[13px]">
                         Designed and Developed by{" "}
                         <Link
                             href="https://axvionel.com"
@@ -201,27 +203,19 @@ export default function Footer() {
                         </Link>
                     </p>
 
-                    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 pt-1">
+                    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 ">
                         <Link
                             href="/privacy-policy"
-                            className="text-[9px] font-normal uppercase leading-[1.7] tracking-[0.12em] text-[#777777] transition-colors hover:text-[#171717] sm:text-[10px]"
+                            className="text-[11px] font-normal uppercase leading-[1.7] tracking-[0.12em] text-[#777777] transition-colors hover:text-[#171717] sm:text-[12px]"
                         >
                             Privacy Policy
                         </Link>
 
                         <Link
                             href="/terms-and-conditions"
-                            className="text-[9px] font-normal uppercase leading-[1.7] tracking-[0.12em] text-[#777777] transition-colors hover:text-[#171717] sm:text-[10px]"
+                            className="text-[11px] font-normal uppercase leading-[1.7] tracking-[0.12em] text-[#777777] transition-colors hover:text-[#171717] sm:text-[10px]"
                         >
                             Terms &amp; Conditions
-                        </Link>
-
-                        <Link
-                            href="#top"
-                            aria-label="Back to top"
-                            className="ml-1 inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#E5E5E5] text-[10px] text-[#171717] transition-colors hover:border-[#171717]"
-                        >
-                            <FaArrowUp />
                         </Link>
                     </div>
                 </div>

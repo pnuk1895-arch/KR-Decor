@@ -86,7 +86,7 @@ export default function HeroComponent() {
 
         {/* Description and CTA */}
         <div className="mt-8 flex flex-col items-center justify-between gap-7 sm:mt-12 sm:gap-8 md:items-start lg:mt-12 lg:flex-row lg:items-end lg:gap-10 2xl:mt-16">
-          <p className="w-full max-w-xl text-center text-[13px] font-medium leading-[1.7] tracking-[0.06em] text-white/80 sm:text-base md:text-left lg:max-w-[48%] 2xl:max-w-2xl 2xl:text-lg">
+          <p className="w-full max-w-xl text-center text-[15px] font-medium leading-[1.7] tracking-[0.06em] text-white/80 sm:text-base md:text-left lg:max-w-[48%] 2xl:max-w-2xl 2xl:text-lg">
             Expert architecture design, work, and luxury full home interiors.
             From custom modular kitchens and wardrobes to TV units — we bring
             your vision to life.

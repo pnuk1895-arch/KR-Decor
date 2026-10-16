@@ -153,22 +153,18 @@ export default function Header() {
       >
         <div className="flex min-h-full flex-col px-6 pb-8 pt-8 sm:px-10">
           {/* NAVIGATION LINKS */}
-          <nav className="flex flex-col">
+          <nav className="flex flex-col justify-center">
             {navLinks.map((link, index) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="group flex items-center justify-between border-b border-transparent py-4 font-serif text-2xl tracking-widest text-stone-500 transition-colors duration-300 hover:text-black sm:text-3xl"
+                className="group flex items-center justify-between border-b border-transparent py-3 font-heading text-3xl tracking-widest text-stone-500 transition-[colors, transfrom] duration-400 hover:text-black sm:text-3xl hover:translate-x-4"
                 style={{
                   transitionDelay: menuOpen ? `${index * 35}ms` : "0ms",
                 }}
               >
                 <span>{link.name}</span>
-                <ArrowRight
-                  size={20}
-                  className="opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
-                />
               </Link>
             ))}
           </nav>
@@ -177,7 +173,7 @@ export default function Header() {
           <Link
             href="/contact"
             onClick={() => setMenuOpen(false)}
-            className="group mt-6 flex items-center justify-center gap-3 border-b border-black/20 py-5 text-sm font-bold tracking-widest text-black"
+            className="group mt-6 flex items-center justify-center gap-3 border-b border-black/20 py-2 text-xs font-bold tracking-widest text-black"
           >
             GET A QUOTE
             <ArrowRight

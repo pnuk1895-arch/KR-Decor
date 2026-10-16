@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
-export default function About() {
+export default function AboutSection() {
     // const [cursor, setCursor] = useState({
     //     x: 0,
     //     y: 0,
@@ -29,7 +29,7 @@ export default function About() {
             className="relative isolate w-full overflow-hidden bg-white text-black"
         >
             {/* Main content */}
-            <div className="relative z-10 mx-auto grid w-full max-w-screen-2xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 sm:py-20 md:gap-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-12 lg:py-24 2xl:px-14">
+            <div className="relative z-10 mx-auto grid w-full max-w-screen-2xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 md:px-10 sm:py-20 md:gap-16 lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-12 lg:py-24 xl:px-18">
 
                 {/* Text content */}
                 <div className="flex w-full flex-col">

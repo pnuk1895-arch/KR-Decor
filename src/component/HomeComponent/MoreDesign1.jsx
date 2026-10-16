@@ -1,3 +1,4 @@
+"use client"
 
 import Image from "next/image";
 import Link from "next/link";
@@ -37,7 +38,7 @@ const solutions = [
 export default function SolutionsSection1() {
     return (
         <section className="w-full bg-[#f5f5f3] text-black">
-            <div className="mx-auto max-w-[1600px] px-5 py-10 sm:px-8 sm:py-20 lg:px-12 lg:py-24 2xl:px-14">
+            <div className="mx-auto max-w-screen-2xl px-5 py-10 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
 
                 {/* Heading */}
                 <div className="flex flex-col items-start justify-between gap-7 border-b border-black/5 pb-5 sm:pb-6">

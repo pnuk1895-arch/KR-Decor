@@ -5,7 +5,7 @@ import SignatureSpaces from "@/component/WorkComponent/SignatureSpaces";
 
 
 
-export default function page()
+export default function Work()
 {
 
   const detail={

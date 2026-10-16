@@ -21,15 +21,7 @@ const socialLinks = [
 ];
 
 export default function Links() {
-
-
-
-
   return (
-    <>
-    
-
-      {/* Follow our journey section */}
       <section className="bg-[#f5f5f5] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16">
         <div className="mx-auto max-w-7xl">
           <h2 className="border-b border-gray-300 pb-8 font-serif text-3xl tracking-tight text-black sm:pb-10 sm:text-4xl lg:text-5xl">
@@ -46,12 +38,12 @@ export default function Links() {
                 aria-label={`Visit KR Decor on ${social.name}`}
                 className="group flex items-center justify-between gap-4 border-b border-gray-300 py-7 sm:py-8 lg:py-10"
               >
-                <div className="flex flex-col gap-1 sm:gap-2">
+                <div className="flex flex-row gap-1 sm:gap-18 ">
                   <span className="font-serif text-3xl text-black transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl lg:text-5xl">
                     {social.name}
                   </span>
 
-                  <span className="text-xs uppercase tracking-widest text-gray-400 sm:text-sm">
+                  <span className="text-xs mt-3 uppercase tracking-widest text-transparent sm:text-sm transition-all duration-200 ease-in group-hover:text-black">
                     {social.handle}
                   </span>
                 </div>
@@ -66,6 +58,5 @@ export default function Links() {
           </div>
         </div>
       </section>
-    </>
   );
 }

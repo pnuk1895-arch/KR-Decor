@@ -18,20 +18,21 @@ export default function Work() {
   }
 
   return (
-    <main>
-      <CommonHero detail={detail} />
-      {/* <SignatureSpaces /> */}
-      <Suspense
-        fallback={
-          <section
-            className="min-h-125 w-full bg-[#f5f5f3]"
-            aria-label="Loading interior solutions"
-          />
-        }
-      >
-        {/* <SolutionsSection2Client /> */}
-      </Suspense>
-      {/* <ClientReviews /> */}
-    </main>
+    // <main>
+    //   <CommonHero detail={detail} />
+    //   {/* <SignatureSpaces /> */}
+    //   <Suspense
+    //     fallback={
+    //       <section
+    //         className="min-h-125 w-full bg-[#f5f5f3]"
+    //         aria-label="Loading interior solutions"
+    //       />
+    //     }
+    //   >
+    //     {/* <SolutionsSection2Client /> */}
+    //   </Suspense>
+    //   {/* <ClientReviews /> */}
+    // </main>
+    <div>hello work</div>
   )
 }

@@ -153,7 +153,7 @@ export default function Footer() {
             {/* Large animated marquee */}
             <div
                 aria-label="Get in touch with KR Decor"
-                className="group block overflow-hidden py-14 sm:py-10 md:py-12 lg:py-14"
+                className=" block overflow-hidden py-14 sm:py-10 md:py-12 lg:py-14"
             >
                 <div className="footer-marquee flex w-max">
                     {marqueeItems.map((_, index) => (
@@ -167,7 +167,7 @@ export default function Footer() {
                                     key={itemIndex}
                                     className="flex shrink-0 items-center gap-5 px-3 sm:gap-8 sm:px-5 md:gap-10"
                                 >
-                                    <span className="footer-marquee-text whitespace-nowrap text-[clamp(3.1rem,10.5vw,9.5rem)] font-heading  leading-[0.95] tracking-[-0.065em] text-[#A5A5A5] transition-colors duration-300 group-hover:text-[#777777]">
+                                    <span className="footer-marquee-text whitespace-nowrap text-[clamp(3.1rem,10.5vw,9.5rem)] font-heading  leading-[0.95] tracking-[-0.065em] text-[#A5A5A5] transition-colors duration-300 ">
                                         <span className="italic">
                                             GET IN
                                         </span>

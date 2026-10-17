@@ -43,9 +43,6 @@ body {
   will-change: transform;
 }
 
-.footer-marquee:hover {
-  animation-play-state: paused;
-}
 
 @media (max-width: 640px) {
   .footer-marquee {
@@ -53,9 +50,4 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .footer-marquee {
-    animation: none;
-    transform: translateX(0);
-  }
-}
+

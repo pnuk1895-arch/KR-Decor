@@ -1,19 +1,17 @@
-import Header from "@/component/CommonComponent/Header";
+"use client"
+
 import AboutSection from "@/component/HomeComponent/About";
 import HeroComponent from "@/component/HomeComponent/HeroComponent";
 import ServicesSection from "@/component/HomeComponent/Services";
 import SolutionsSection1 from "@/component/HomeComponent/MoreDesign1";
 import ClientReviews from "@/component/HomeComponent/Client";
 import FAQSection from "@/component/HomeComponent/Features";
-import Footer from "@/component/CommonComponent/Footer";
 import SolutionsSection2Client from "@/component/HomeComponent/MoreDesign2";
 
 import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <>
-      <Header />
       <main>
         <HeroComponent />
         <AboutSection />
@@ -32,7 +30,6 @@ export default function Page() {
         <ClientReviews />
         <FAQSection />
       </main>
-      <Footer />
-    </>
+      
   )
 }

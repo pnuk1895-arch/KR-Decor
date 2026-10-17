@@ -41,7 +41,7 @@ export default function SolutionsSection1() {
             <div className="mx-auto max-w-screen-2xl px-5 py-10 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
 
                 {/* Heading */}
-                <div className="flex flex-col items-start justify-between gap-7 border-b border-black/5 pb-5 sm:pb-6">
+                <div className="flex flex-col items-start justify-between gap-7 border-b border-black/5 pb-5 sm:pb-6 md:flex-row md:items-end ">
                     <h2 className="max-w-212.5 font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-6xl">
                         Smart interior solutions for
                         <br className="hidden sm:block" /> modern living

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+
 export default function HeroComponent() {
   const [cursor, setCursor] = useState({
     x: 0,
@@ -52,7 +53,7 @@ export default function HeroComponent() {
     >
       {/* Full-Width Background Image */}
       <Image
-        src="/Images/HeroImage.webp"
+        src='/Images/HeroImage.webp'
         alt="Luxury modern kitchen interior"
         fill
         priority

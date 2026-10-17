@@ -20,7 +20,7 @@ export default function Work() {
   return (
     <main>
       <CommonHero detail={detail} />
-      <SignatureSpaces />
+      {/* <SignatureSpaces /> */}
       <Suspense
         fallback={
           <section
@@ -29,9 +29,9 @@ export default function Work() {
           />
         }
       >
-        <SolutionsSection2Client />
+        {/* <SolutionsSection2Client /> */}
       </Suspense>
-      <ClientReviews />
+      {/* <ClientReviews /> */}
     </main>
   )
 }

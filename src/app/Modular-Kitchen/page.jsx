@@ -6,11 +6,11 @@ import ModularKitchenSection from "@/component/HomeKitchen/kitchen_Mastary";
 
 export default function ModularKitchen() {
   const detail = {
-    image: "/images/About/AboutImage1.webp",
-    title: "ABOUT US",
+    image: "/Images/About/AboutImage1.webp",
+    title: "MODULAR KITCHENS",
     description:
-      "Discover the vision, precision craftsmanship, and quiet luxury behind KR Decor's bespoke interior solutions.",
-    imageAlt: "ABOUT BG",
+      "Redefining culinary spaces with precision engineering, ergonomic flow, and timeless aesthetic elegance.",
+    imageAlt: "MODULAR KITCHEN",
   };
 
   return (

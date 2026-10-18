@@ -7,11 +7,11 @@ import FAQSection from "@/component/HomeComponent/Features";
 
 export default function Modular_Wardrobe() {
   const detail = {
-    image: "/images/About/AboutImage1.webp",
-    title: "ABOUT US",
+    image: "/Images/About/AboutImage1.webp",
+    title: "MODULAR WARDROBES",
     description:
-      "Discover the vision, precision craftsmanship, and quiet luxury behind KR Decor's bespoke interior solutions.",
-    imageAlt: "ABOUT BG",
+      "Crafting bespoke walk-in closets and storage systems designed for uncompromising elegance and flawless organization.",
+    imageAlt: "MODULAR WAEDROBES",
   };
 
   const interiors = [

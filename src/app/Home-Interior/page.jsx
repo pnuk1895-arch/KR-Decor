@@ -6,7 +6,7 @@ import { InteriorGallery } from "@/component/Home-interior/Home-Interior";
 export default function HomeInterior()
 {
   const detail={
-    image:"/images/About/AboutImage1.webp",
+    image:"/Images/About/AboutImage1.webp",
     title:"FULL HOME INTERIOR",
     description:`Curating bespoke, light-filled living spaces and turnkey architectural solutions with quiet luxury and uncompromising precision.`,
     imageAlt:"ABOUT BG"

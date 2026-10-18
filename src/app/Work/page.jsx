@@ -11,11 +11,10 @@ import { Suspense } from "react";
 export default function Work() {
 
   const detail = {
-    image: "/images/About/AboutImage1.webp",
+    image: "/Images/About/AboutImage1.webp",
     title: "SELECTED WORK",
-    description: `Delivering architectural distinction and quiet luxury interiors
-                        from our studio in Jasola Apollo, New Delhi.`,
-    imageAlt: "ABOUT BG"
+    description: `Explore a curated portfolio of bespoke interiors, where quiet luxury meets flawless execution.`,
+    imageAlt: "Work"
   }
 
   return (

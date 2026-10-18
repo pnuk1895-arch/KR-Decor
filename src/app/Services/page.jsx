@@ -8,7 +8,7 @@ import ServicesShaped from "@/component/ServicesComponent/ServiceShaped"
 
 export default function Services() {
   const detail={
-    image:"/images/About/AboutImage1.webp",
+    image:"/Images/About/AboutImage1.webp",
     title:"OUR SERVICES",
     description:"Comprehensive interior architecture, bespoke design, and seamless execution tailored to your luxury lifestyle.",
     imageAlt:"Services"

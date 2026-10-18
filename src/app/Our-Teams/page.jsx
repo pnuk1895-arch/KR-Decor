@@ -4,11 +4,11 @@ import OurTeams from "@/component/OurTeamComponent/Team";
 export default function OurTeam()
 {
   const detail = {
-    image: "/images/About/AboutImage1.webp",
-    title: "ABOUT US",
+    image: "/Images/About/AboutImage1.webp",
+    title: "Our Visionary Team",
     description:
-      "Discover the vision, precision craftsmanship, and quiet luxury behind KR Decor's bespoke interior solutions.",
-    imageAlt: "ABOUT BG",
+      "Meet the architectural minds and master craftsmen shaping quiet luxury spaces at KR Decor.",
+    imageAlt: "Our Visionary Team",
   };
 
   return (

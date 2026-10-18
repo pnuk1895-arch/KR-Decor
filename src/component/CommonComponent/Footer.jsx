@@ -16,6 +16,8 @@ const navigationLinks = [
     { label: "Career", href: "/career" },
 ];
 
+const Logo="/Images/KR_Decor_logo.svg"
+
 const marqueeItems = Array.from({ length: 2 });
 
 const headingClass =
@@ -38,7 +40,7 @@ export default function Footer() {
                             className="inline-flex"
                         >
                             <Image
-                                src="/Images/KR_Decor_logo.svg"
+                                src={Logo}
                                 alt="KR Decor"
                                 width={190}
                                 height={70}
@@ -97,7 +99,7 @@ export default function Footer() {
                         <ul className="flex flex-col items-start gap-1.75 sm:gap-2">
                             <li>
                                 <Link
-                                    href="https://www.instagram.com/"
+                                    href="https://www.instagram.com/_krdecor_/?hl=en"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className={linkClass}
@@ -108,7 +110,7 @@ export default function Footer() {
 
                             <li>
                                 <Link
-                                    href="https://www.facebook.com/"
+                                    href="https://www.facebook.com/people/KRDecor/61587064716293/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className={linkClass}

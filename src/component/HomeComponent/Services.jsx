@@ -11,7 +11,7 @@ const services = [
         description:
             "Curating personalized living spaces and bespoke full home interior solutions.",
         type: "text",
-        href: "/services/full-home-interior",
+        href: "/Services",
     },
     {
         number: "02",
@@ -19,7 +19,7 @@ const services = [
         description:
             "Expert architecture design and high-impact structural work.",
         type: "text",
-        href: "/services/architecture",
+        href: "/Services",
     },
     {
         number: "03",
@@ -27,7 +27,7 @@ const services = [
         description:
             "Custom modular kitchens, walk-in wardrobes, and stylish TV units.",
         type: "text",
-        href: "/services/modular-kitchen-wardrobe",
+        href: "/Services",
     },
     {
         number: "04",
@@ -35,7 +35,7 @@ const services = [
         description:
             "Reimagining existing structures with innovative modular work layouts.",
         type: "text",
-        href: "/services/spatial-renovation",
+        href: "/Services",
     },
 ];
 
@@ -49,6 +49,8 @@ const serviceImages = [
         alt: "Elegant staircase and renovated home interior"
     },
 ];
+
+const MainHeading="Complete interior services for modern space"
 
 
 function ServiceTextCard({ service }) {
@@ -112,9 +114,9 @@ export default function ServicesSection() {
                 {/* Section heading */}
                 <div className="mx-auto max-w-212.5 border-b border-black/4 pb-5 text-center sm:pb-7">
                     <h2 className="font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-[56px]">
-                        Complete interior services for
+                        {MainHeading.split("modern")[0]}
                         <br />
-                         modern space
+                        {MainHeading.split("for")[1]}
                     </h2>
                 </div>
 
@@ -134,7 +136,7 @@ export default function ServicesSection() {
                 {/* View all services */}
                 <div className="mt-10 flex justify-center sm:mt-12 lg:mt-14">
                     <Link
-                        href="/services"
+                        href="/Services"
                         className="group/link flex w-fit items-center gap-3 border-b border-black/10 pb-2 text-[10px] font-semibold tracking-[0.08em] transition-colors duration-300 hover:border-black sm:text-[11px]"
                     >
                         <span>VIEW ALL SERVICES</span>

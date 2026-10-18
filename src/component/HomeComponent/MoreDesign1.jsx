@@ -35,6 +35,8 @@ const solutions = [
     },
 ];
 
+const MainHeading="Smart interior solutions for modern living"
+
 export default function SolutionsSection1() {
     return (
         <section className="w-full bg-[#f5f5f3] text-black">
@@ -43,13 +45,13 @@ export default function SolutionsSection1() {
                 {/* Heading */}
                 <div className="flex flex-col items-start justify-between gap-7 border-b border-black/5 pb-5 sm:pb-6 md:flex-row md:items-end ">
                     <h2 className="max-w-212.5 font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-6xl">
-                        Smart interior solutions for
-                        <br className="hidden sm:block" /> modern living
+                        {MainHeading.split("modern")[0] }
+                        <br className="hidden sm:block" /> {MainHeading.split("for")[1]}
                     </h2>
 
 
                     <Link
-                        href="/services"
+                        href="/Services"
                         className="group/link mb-1 inline-flex shrink-0 flex-col items-start gap-3 pb-2 text-[12px] font-semibold tracking-[0.12em] transition-colors duration-300 sm:text-xs"
                     >
                         <div className="flex flex-row items-center gap-4">

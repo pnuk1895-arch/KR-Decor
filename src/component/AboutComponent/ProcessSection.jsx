@@ -104,7 +104,7 @@ export default function OurProcess() {
                                 {/* Timeline marker */}
                                 <span
                                     aria-hidden="true"
-                                    className="absolute left-4 top-5 z-10 size-2.5 -translate-x-1/2 rounded-full border border-neutral-800 bg-white ring-4 ring-white transition-transform duration-300 group-hover:scale-125 md:left-1/2 md:top-1/2 md:-translate-y-1/2"
+                                    className="absolute left-4 top-5 z-10 size-2.5 -translate-x-1/2 rounded-full border border-neutral-800 bg-white ring-4 ring-white transition-transform duration-300 group-hover:scale-125 group-hover:bg-black md:left-1/2 md:top-1/2 md:-translate-y-1/2"
                                 />
 
                                 {/* Step content */}
@@ -122,11 +122,11 @@ export default function OurProcess() {
                                             /{stepNumber}
                                         </span>
 
-                                        <h3 className="mt-3 font-serif text-xl tracking-wide text-neutral-900 sm:text-2xl lg:text-3xl">
+                                        <h3 className="mt-3 font-heading text-xl tracking-wide text-neutral-900 sm:text-2xl lg:text-3xl">
                                             {step.title}
                                         </h3>
 
-                                        <p className="mt-3 text-sm leading-6 tracking-wide text-neutral-600 sm:text-base sm:leading-7">
+                                        <p className="mt-3 text-base leading-6 tracking-wide text-neutral-600/50 sm:text-lg sm:leading-7">
                                             {step.description}
                                         </p>
                                     </div>

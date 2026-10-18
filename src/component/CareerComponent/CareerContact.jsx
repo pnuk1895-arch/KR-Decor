@@ -4,6 +4,13 @@
 import { useState } from "react";
 import { ArrowRight, Upload } from "lucide-react";
 
+
+const TopMinHeading='Careers at KR Decor'
+const MainHeading="Shape Spaces With Purpose Passion"
+const MainContent =`We are always looking for visionary architects, interior
+            designers, and execution experts who share our dedication
+            to quiet luxury and meticulous craftsmanship.`
+
 export default function CareerContact() {
   const [fileName, setFileName] = useState("");
 
@@ -15,23 +22,21 @@ export default function CareerContact() {
   }
 
   return (
-    <section className="w-full bg-white px-5 py-16 text-black sm:px-8 sm:py-20 lg:px-12 lg:py-24 xl:px-16">
-      <div className="mx-auto grid w-full max-w-screem-2xl grid-cols-1 gap-12 md:grid-cols-2 md:gap-10 lg:gap-16 xl:gap-24">
+    <section className="w-full bg-white  py-16 text-black sm:py-20 lg:py-24">
+      <div className="mx-auto grid w-full max-w-screen-2xl grid-cols-1 px-5 sm:px-8 gap-12 md:px-10 md:grid-cols-2 md:gap-10 lg:px-12 lg:gap-16 xl:px-18 xl:gap-24">
         {/* Left content */}
         <div className="flex flex-col items-start">
           <p className="mb-6 text-xs font-medium uppercase tracking-widest text-stone-500 sm:mb-8">
-            Careers at KR Decor
+            {TopMinHeading}
           </p>
 
           <h2 className="max-w-lg font-serif text-4xl leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Shape Spaces
-            <br className="hidden lg:block" /> With Purpose &amp; Passion
+            {MainHeading.split("With")[0]}
+            <br className="hidden lg:block" /> {MainHeading.split(" ").slice(2, 4).join(" ")} &amp; {MainHeading.split("Purpose")[1]}
           </h2>
 
           <p className="mt-6 max-w-md text-sm leading-6 tracking-wide text-stone-600 sm:mt-7 sm:text-base sm:leading-7">
-            We are always looking for visionary architects, interior
-            designers, and execution experts who share our dedication
-            to quiet luxury and meticulous craftsmanship.
+            {MainContent}
           </p>
         </div>
 

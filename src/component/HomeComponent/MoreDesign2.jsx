@@ -59,6 +59,8 @@ const solutions = [
   },
 ];
 
+const MainHeading="Smart interior solutions for modern living"
+
 export default function SolutionsSection2Client() {
   const swiperRef = useRef(null);
 
@@ -67,7 +69,7 @@ export default function SolutionsSection2Client() {
       <div className="mx-auto max-w-screen-2xl px-5 py-16 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
         <div className="flex flex-col items-start justify-between gap-10 border-b border-black/10 pb-8 sm:gap-6 sm:pb-10 md:flex-row md:items-end lg:pb-12">
           <h2 className="max-w-162.5 font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-6xl">
-            Smart interior solutions for modern living
+            {MainHeading}
           </h2>
 
           <div className="mb-1 flex shrink-0 items-center gap-6 sm:gap-5">

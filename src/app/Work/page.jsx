@@ -12,8 +12,9 @@ export default function Work() {
 
   const detail = {
     image: "/images/About/AboutImage1.webp",
-    title: "ABOUT US",
-    description: "Discover the vision, precision craftsmanship, and quiet luxury behind KR Decor's bespoke interior solutions.",
+    title: "SELECTED WORK",
+    description: `Delivering architectural distinction and quiet luxury interiors
+                        from our studio in Jasola Apollo, New Delhi.`,
     imageAlt: "ABOUT BG"
   }
 

@@ -5,6 +5,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+// heroImage 
+const HeroImage = "/Images/HeroImage.webp"
+const HeroAlt = "Luxury Home Decor Image"
+
+// main Heading 
+const headingFirst = "Transforming"
+const headingSecond = "Extraordinary"
+const headingThird = "Living."
+
+// Hero Main Content 
+const MainContent = `Expert architecture design, work, and luxury full home interiors.
+            From custom modular kitchens and wardrobes to TV units — we bring
+            your vision to life.`
 
 export default function HeroComponent() {
   const [cursor, setCursor] = useState({
@@ -53,8 +66,8 @@ export default function HeroComponent() {
     >
       {/* Full-Width Background Image */}
       <Image
-        src='/Images/HeroImage.webp'
-        alt="Luxury modern kitchen interior"
+        src={HeroImage}
+        alt={HeroAlt}
         fill
         priority
         sizes="100vw"
@@ -79,23 +92,21 @@ export default function HeroComponent() {
         {/* Responsive Heading */}
         <div className="w-full">
           <h1 className="flex w-full flex-col items-center text-center font-heading font-normal uppercase leading-[0.82] tracking-[-0.055em] text-[clamp(2.15rem,8.5vw,3.5rem)] sm:text-[clamp(3.5rem,7.2vw,5rem)] md:items-start md:text-left md:text-[clamp(3.5rem,7.5vw,5.5rem)] lg:text-[clamp(4.5rem,7vw,7rem)] xl:text-[clamp(5rem,6.5vw,8rem)] 2xl:text-[clamp(6rem,6.2vw,9rem)]">
-            <span className="block whitespace-nowrap">Transforming</span>
-            <span className="block whitespace-nowrap italic">Extraordinary</span>
-            <span className="block whitespace-nowrap">Living.</span>
+            <span className="block whitespace-nowrap">{headingFirst}</span>
+            <span className="block whitespace-nowrap italic">{headingSecond}</span>
+            <span className="block whitespace-nowrap">{headingThird}</span>
           </h1>
         </div>
 
         {/* Description and CTA */}
         <div className="mt-8 flex flex-col items-center justify-between gap-7 sm:mt-12 sm:gap-8 md:items-start lg:mt-12 lg:flex-row lg:items-end lg:gap-10 2xl:mt-16">
           <p className="w-full max-w-xl text-center text-[15px] font-medium leading-[1.7] tracking-[0.06em] text-white/80 sm:text-base md:text-left lg:max-w-[48%] 2xl:max-w-2xl 2xl:text-lg">
-            Expert architecture design, work, and luxury full home interiors.
-            From custom modular kitchens and wardrobes to TV units — we bring
-            your vision to life.
+            {MainContent}
           </p>
 
           {/* Get In Touch Button */}
           <Link
-            href="/contact"
+            href="/Contact"
             onPointerMove={handleButtonPointerMove}
             onPointerLeave={() =>
               setButtonCursor((previous) => ({

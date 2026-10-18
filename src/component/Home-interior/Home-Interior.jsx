@@ -3,36 +3,42 @@ import Image from "next/image";
 
 const interiors = [
     {
-        image: "/Images/HomeInterior/Image1.webp",
+        image: "/Images/Services/Image1.webp",
         title: "Luxurious Warm Modern Living Space",
         alt: "Warm modern living room with elegant lighting and neutral furniture",
     },
     {
-        image: "/Images/HomeInterior/Image2.webp",
+        image: "/Images/Services/Image2.webp",
         title: "Moody Green and Gold Luxury Bedroom",
         alt: "Luxury bedroom with dark green accents and warm gold lighting",
     },
     {
-        image: "/Images/HomeInterior/Image3.webp",
+        image: "/Images/Services/Image1.webp",
         title: "Luxurious Modern Indoor Garden Atrium",
         alt: "Modern luxury home with indoor garden and architectural staircase",
     },
     {
-        image: "/Images/HomeInterior/Image4.webp",
+        image: "/Images/Services/Image2.webp",
         title: "Sunlit Indoor-Outdoor Luxury Living Space",
         alt: "Bright luxury living room opening onto an outdoor garden",
     },
     {
-        image: "/Images/HomeInterior/Image5.webp",
+        image: "/Images/Services/Image2.webp",
         title: "Modern Luxury Villa in Daylight",
         alt: "Contemporary luxury villa with landscaped front garden",
     },
     {
-        image: "/Images/HomeInterior/Image6.webp",
+        image: "/Images/Services/Image2.webp",
         title: "Twilight Modern Villa Retreat",
         alt: "Modern luxury villa illuminated with warm architectural lighting at dusk",
     },
 ];
+
+// interior gallery
+
+const MainHeading = "Bespoke Full Home Interiors"
+const MainContent = `Curating emotionally resonant living spaces from our Jasola Apollo
+                        studio in New Delhi with complete turnkey execution.`
 
 export function InteriorCard({ image, title, alt }) {
     return (
@@ -62,16 +68,15 @@ export function InteriorCard({ image, title, alt }) {
 export function InteriorGallery() {
     return (
         <section className="w-full bg-white text-black">
-            <div className="mx-auto w-[90%] max-w-screen-2xl py-10 sm:py-14 md:py-16 lg:py-20">
+            <div className="mx-auto w-full max-w-screen-2xl px-5 py-10 sm:px-8 sm:py-14 md:px-10 md:py-16 lg:px-12 lg:py-20 xl:px-18 ">
                 {/* Heading */}
                 <div className="flex flex-col gap-5 border-b border-neutral-200 pb-6 md:flex-row md:items-end md:justify-between md:gap-10">
                     <h2 className="max-w-2xl font-heading text-4xl font-normal leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-                        Bespoke Full Home Interiors
+                        {MainHeading}
                     </h2>
 
                     <p className="max-w-sm text-sm leading-relaxed text-neutral-500 md:pb-1">
-                        Curating emotionally resonant living spaces from our Jasola Apollo
-                        studio in New Delhi with complete turnkey execution.
+                        {MainContent}
                     </p>
                 </div>
 

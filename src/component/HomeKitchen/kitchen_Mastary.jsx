@@ -2,32 +2,32 @@ import Image from "next/image";
 
 const kitchens = [
   {
-    image: "/Images/ModularKitchen/Image1.webp",
+    image: "/Images/Services/Image1.webp",
     title: "Warmly Lit Luxury Kitchen",
     alt: "Warm luxury kitchen with wooden cabinets and golden lighting",
   },
   {
-    image: "/Images/ModularKitchen/Image2.webp",
+    image: "/Images/Services/Image2.webp",
     title: "Luxurious Green Marble Kitchen",
     alt: "Modern green modular kitchen with marble countertops",
   },
   {
-    image: "/Images/ModularKitchen/Image3.webp",
+    image: "/Images/Services/Image1.webp",
     title: "Luxurious Navy Kitchen with Marble Island",
     alt: "Navy luxury kitchen with a marble island and pendant lighting",
   },
   {
-    image: "/Images/ModularKitchen/Image4.webp",
+    image: "/Images/Services/Image2.webp",
     title: "Moody Black Marble Luxury Kitchen",
     alt: "Black marble kitchen with warm accent lighting",
   },
   {
-    image: "/Images/ModularKitchen/Image5.webp",
+    image: "/Images/Services/Image1.webp",
     title: "Sage Green Luxury Kitchen Island",
     alt: "Sage green kitchen with a contemporary island",
   },
   {
-    image: "/Images/ModularKitchen/Image6.webp",
+    image: "/Images/Services/Image2.webp",
     title: "Luxurious Marble Kitchen with Golden Ring Lights",
     alt: "Luxury marble kitchen with golden ring pendant lights",
   },
@@ -36,7 +36,7 @@ const kitchens = [
 export default function ModularKitchenSection() {
   return (
     <section className="w-full bg-white text-black">
-      <div className="mx-auto w-[90%] max-w-screen-2xl py-10 sm:py-14 md:py-16 lg:py-20">
+      <div className="mx-auto w-full max-w-screen-2xl px-5 py-10 sm:px-8 sm:py-14 md:px-10 md:py-16 lg:px-12 lg:py-20 xl:px-18 ">
         {/* Section heading */}
         <div className="border-b border-black/10 pb-6 sm:pb-8">
           <h2 className="max-w-3xl font-heading text-4xl font-normal leading-tight tracking-tight sm:text-5xl lg:text-6xl">

@@ -17,6 +17,8 @@ const navLinks = [
   { name: "OUR TEAMS", href: "/Our-Teams" },
 ];
 
+const Logo="/Images/KR_Decor_logo.svg"
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -78,7 +80,7 @@ export default function Header() {
               className="relative block h-full w-full"
             >
               <Image
-                src="/Images/KR_Decor_logo.svg"
+                src={Logo}
                 alt="KR Decor"
                 fill
                 priority
@@ -104,7 +106,7 @@ export default function Header() {
 
           {/* DESKTOP GET A QUOTE: ORIGINAL XL BREAKPOINT */}
           <Link
-            href="/contact"
+            href="/Contact"
             className={`group hidden shrink-0 items-center gap-3 border-b border-current/30 pb-2 text-xs font-bold tracking-widest transition-colors duration-300 xl:flex ${quoteTheme}`}
           >
             <span>GET A QUOTE</span>
@@ -119,7 +121,7 @@ export default function Header() {
           <div className="flex shrink-0 items-center gap-5 xl:hidden">
             {/* MOBILE / TABLET GET A QUOTE */}
             <Link
-              href="/contact"
+              href="/Contact"
               className={`group hidden items-center gap-2 border-b border-current/30 pb-2 text-xs font-bold tracking-wider transition-colors duration-300 sm:flex ${menuOpen ? "sm:hidden" : ""
                 } ${scrolled ? "text-black" : "text-white"}`}
             >
@@ -171,7 +173,7 @@ export default function Header() {
 
           {/* CENTERED SIDEBAR GET A QUOTE */}
           <Link
-            href="/contact"
+            href="/Contact"
             onClick={() => setMenuOpen(false)}
             className="group mt-6 flex items-center justify-center gap-3 border-b border-black/20 py-2 text-xs font-bold tracking-widest text-black"
           >

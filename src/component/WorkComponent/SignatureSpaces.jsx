@@ -6,27 +6,27 @@ import { ArrowRight } from "lucide-react";
 const spaces = [
     {
         type: "image",
-        image: "/img/d1.jpeg",
+        image: "/Images/Services/Image1.webp",
         alt: "Luxury modular kitchen interior",
     },
     {
         type: "image",
-        image: "/img/d2.jpeg",
+        image: "/Images/Services/Image1.webp",
         alt: "Modern architectural shelving details",
     },
     {
         type: "image",
-        image: "/img/d3.jpeg",
+        image: "/Images/Services/Image1.webp",
         alt: "Contemporary wooden interior finishes",
     },
     {
         type: "image",
-        image: "/img/d5.jpeg",
+        image: "/Images/Services/Image1.webp",
         alt: "Full home interior with modern finishes",
     },
     {
         type: "image",
-        image: "/img/d8.jpeg",
+        image: "/Images/Services/Image2.webp",
         alt: "Modern staircase with natural materials",
     },
     {
@@ -43,12 +43,12 @@ const spaces = [
     },
     {
         type: "image",
-        image: "/img/d10.jpeg",
+        image: "/Images/Services/Image1.webp",
         alt: "Elegant classic living room with detailed finishes",
     },
     {
         type: "image",
-        image: "/img/d11.jpeg",
+        image: "/Images/Services/Image1.webp",
         alt: "Premium wooden finishes and luxury styling",
     },
 ];
@@ -85,7 +85,7 @@ function SpaceText({ title, description }) {
 export default function SignatureSpaces() {
     return (
         <section className="w-full bg-white text-black">
-            <div className="mx-auto w-[90%] max-w-screen-2xl py-10 sm:py-14 md:py-20 lg:py-24">
+            <div className="mx-auto w-full max-w-screen-2xl px-5 py-10 sm:px-8 sm:py-14 md:px-10 md:py-20 lg:px-12 lg:py-24 xl:px-18">
                 {/* Section heading */}
                 <div className="flex flex-col items-start justify-between gap-5 border-b border-black/10 pb-5 sm:pb-6">
                     <h2 className="w-full max-w-2xl font-heading text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">

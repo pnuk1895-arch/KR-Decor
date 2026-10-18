@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 
-export default function CommonHero({detail}) {
+export default function CommonHero({detail}){
   return (
-    <section className="relative isolate flex min-h-85 w-full items-end overflow-hidden bg-neutral-900 text-white sm:min-h-95 md:min-h-110 ">
+    <section className="relative isolate flex min-h-85 w-full items-end overflow-hidden bg-neutral-900 text-white  sm:min-h-95 md:min-h-110 ">
       {/* Background image */}
       <Image
         src={detail.image}

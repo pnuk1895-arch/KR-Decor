@@ -11,6 +11,19 @@ const teamMembers = [
     },
 ];
 
+const TopMinHeading = "The minds behind KR Decor"
+const MainHeading = "Crafted by visionaries"
+const MainContent = `Operating from our studio at F Block, Plot Number 160, Jasola
+                        Apollo, New Delhi, our multidisciplinary team brings together
+                        rigorous architecture, engineering precision, and quiet luxury
+                        design.`
+
+// consultation banner 
+
+const heading = "Ready to collaborate on your dream interior?"
+const Content = `Connect with our design experts via WhatsApp at +91 99583 84263
+                            or visit our Jasola Apollo studio.`
+
 export default function OurTeams() {
     return (
         <section className="w-full bg-white text-black">
@@ -19,21 +32,18 @@ export default function OurTeams() {
                 <div className="grid grid-cols-1 gap-6 border-b border-neutral-100 pb-8 sm:pb-10 md:grid-cols-2 md:items-center md:gap-10">
                     <div>
                         <p className="mb-4 text-xs font-medium uppercase tracking-widest text-neutral-500">
-                            The minds behind KR Decor
+                            {TopMinHeading}
                         </p>
 
                         <h2 className="font-serif text-4xl leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-                            Crafted by
+                            {MainHeading.split("Visionaires")[0]}
                             <br />
-                            <span className="italic">visionaries</span>
+                            <span className="italic">{MainHeading.split(" ")[2]}</span>
                         </h2>
                     </div>
 
                     <p className="max-w-lg text-sm leading-7 text-neutral-600 md:ml-auto lg:text-base">
-                        Operating from our studio at F Block, Plot Number 160, Jasola
-                        Apollo, New Delhi, our multidisciplinary team brings together
-                        rigorous architecture, engineering precision, and quiet luxury
-                        design.
+                        {MainContent}
                     </p>
                 </div>
 
@@ -66,12 +76,11 @@ export default function OurTeams() {
                 <div className="flex flex-col gap-6 bg-neutral-100 px-6 py-8 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10 lg:py-10">
                     <div className="max-w-2xl">
                         <h3 className="font-serif text-2xl leading-snug sm:text-3xl">
-                            Ready to collaborate on your dream interior?
+                            {heading}
                         </h3>
 
                         <p className="mt-2 text-sm leading-6 text-neutral-600">
-                            Connect with our design experts via WhatsApp at +91 99583 84263
-                            or visit our Jasola Apollo studio.
+                            {Content}
                         </p>
                     </div>
 

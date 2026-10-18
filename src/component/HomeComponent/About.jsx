@@ -3,26 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+
+const MainHeading = "Our expertise in design and precision craft"
+const MainContent = `Specializing in modular work, full home interiors, modular kitchens,
+                        and modular wardrobes. We honor proportion and organic materials
+                        to shape spaces that feel calm, natural, and seamlessly beautiful.`
+
+// image 
+const Image1='/Images/About/AboutImage1.webp' 
+const Image2="/Images/About/AboutImage2.webp"
 
 export default function AboutSection() {
-    // const [cursor, setCursor] = useState({
-    //     x: 0,
-    //     y: 0,
-    //     visible: false,
-    // });
-
-    // const handlePointerMove = (event) => {
-    //     if (event.pointerType === "touch") return;
-
-    //     const rect = event.currentTarget.getBoundingClientRect();
-
-    //     setCursor({
-    //         x: event.clientX - rect.left,
-    //         y: event.clientY - rect.top,
-    //         visible: true,
-    //     });
-    // };
 
     return (
         <section
@@ -34,15 +25,13 @@ export default function AboutSection() {
                 {/* Text content */}
                 <div className="flex w-full flex-col">
                     <h2 className="max-w-2xl font-heading text-4xl font-normal leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl">
-                        Our expertise in design and precision craft
+                        {MainHeading}
                     </h2>
 
                     <div className="mt-5 h-px w-full bg-black/10 sm:mt-6 lg:mt-7" />
 
                     <p className="mt-7 max-w-xl text-sm font-normal leading-6 tracking-wide text-neutral-600 sm:mt-9 sm:text-base sm:leading-7 lg:mt-9">
-                        Specializing in modular work, full home interiors, modular kitchens,
-                        and modular wardrobes. We honor proportion and organic materials
-                        to shape spaces that feel calm, natural, and seamlessly beautiful.
+                        {MainContent}
                     </p>
 
                     <Link
@@ -67,7 +56,7 @@ export default function AboutSection() {
                     <div className="relative col-span-1 flex h-full items-end lg:col-span-5">
                         <div className="relative h-45 aspect-square w-full self-end overflow-hidden md:h-74">
                             <Image
-                                src="/Images/About/AboutImage1.webp"
+                                src={Image1}
                                 alt="Elegant modern living room interior"
                                 fill
                                 sizes="(max-width: 639px) 45vw, (max-width: 1023px) 42vw, 28vw"
@@ -79,7 +68,7 @@ export default function AboutSection() {
                     {/* Larger image: determines the gallery height */}
                     <div className="relative h-70 col-span-1 aspect-2/3 w-full overflow-hidden lg:col-span-6 md:h-130">
                         <Image
-                            src="/Images/About/AboutImage2.webp"
+                            src={Image2}
                             alt="Luxury living room with contemporary interior design"
                             fill
                             sizes="(max-width: 639px) 45vw, (max-width: 1023px) 42vw, 32vw"

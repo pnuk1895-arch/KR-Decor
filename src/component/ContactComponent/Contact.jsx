@@ -4,6 +4,11 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
+const TopMinHeading = "Contact us"
+const MainHeading = "LET's BEGIN A CONVERSATION"
+const MainContent = `Tell us more about your space, your ideas, and your aspirations.
+                        We'll guide you through the next steps with care and intention.`
+
 export default function ContactSection() {
     const [submitted, setSubmitted] = useState(false);
 
@@ -24,16 +29,15 @@ export default function ContactSection() {
                 {/* Left content */}
                 <div className="flex flex-col justify-center">
                     <p className="mb-5 text-xs font-medium uppercase tracking-widest text-neutral-500">
-                        Contact us
+                        {TopMinHeading}
                     </p>
 
-                    <h2 className="max-w-xl font-serif text-4xl uppercase leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-                        Let&apos;s begin a conversation
+                    <h2 className="max-w-xl font-serif text-4xl  leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                        {MainHeading}
                     </h2>
 
                     <p className="mt-5 max-w-lg text-sm leading-6 text-neutral-600 sm:text-base sm:leading-7">
-                        Tell us more about your space, your ideas, and your aspirations.
-                        We&apos;ll guide you through the next steps with care and intention.
+                        {MainContent}
                     </p>
                 </div>
 

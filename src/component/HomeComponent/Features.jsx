@@ -32,6 +32,9 @@ const faqs = [
   },
 ];
 
+const MainHeading = "Frequently Asked Questions"
+const MainContent = `Find answers to common questions about our design process, timelines, and execution methodology.`
+
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(-1);
 
@@ -46,16 +49,15 @@ export default function FAQSection() {
 
           {/* Left: FAQ heading and description */}
           <div className="min-w-0 md:col-span-3 md:self-center">
-            <h2 className="font-heading text-4xl font-normal leading-[1.12] tracking-[-0.035em] sm:text-5xl lg:text-[clamp(2.5rem,3.3vw,3.75rem)]">
-              Frequently{" "}
+            <h2 className="font-heading text-4xl font-normal leading-[1.12] tracking-[-0.035em] sm:text-5xl lg:text-[clamp(2.5rem,12vw,4rem)]">
+              {MainHeading.split(" ")[0]}
               <span className="md:block">
-                Asked Questions
+              {MainHeading.split("Frequently")[1]}
               </span>
             </h2>
 
             <p className="mt-5 max-w-md text-sm font-normal leading-6 tracking-[0.015em] text-neutral-500 sm:mt-6 sm:text-base sm:leading-7">
-              Find answers to common questions about our design process,
-              timelines, and execution methodology.
+              {MainContent}
             </p>
           </div>
 
@@ -87,8 +89,8 @@ export default function FAQSection() {
                           size={22}
                           strokeWidth={1.3}
                           className={`absolute transition-all duration-300 ease-in-out ${isOpen
-                              ? "rotate-90 scale-50 opacity-0"
-                              : "rotate-0 scale-100 opacity-100"
+                            ? "rotate-90 scale-50 opacity-0"
+                            : "rotate-0 scale-100 opacity-100"
                             }`}
                         />
 
@@ -96,8 +98,8 @@ export default function FAQSection() {
                           size={22}
                           strokeWidth={1.3}
                           className={`absolute transition-all duration-300 ease-in-out ${isOpen
-                              ? "rotate-0 scale-100 opacity-100"
-                              : "-rotate-90 scale-50 opacity-0"
+                            ? "rotate-0 scale-100 opacity-100"
+                            : "-rotate-90 scale-50 opacity-0"
                             }`}
                         />
                       </span>
@@ -107,15 +109,15 @@ export default function FAQSection() {
                       id={answerId}
                       aria-hidden={!isOpen}
                       className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isOpen
-                          ? "grid-rows-[1fr] opacity-100"
-                          : "grid-rows-[0fr] opacity-0"
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
                         }`}
                     >
                       <div className="overflow-hidden">
                         <p
                           className={`max-w-3xl pb-6 pr-7 text-sm leading-7 tracking-[0.01em] text-neutral-500 transition-transform duration-500 ease-in-out sm:pb-7 sm:text-base ${isOpen
-                              ? "translate-y-0"
-                              : "-translate-y-2"
+                            ? "translate-y-0"
+                            : "-translate-y-2"
                             }`}
                         >
                           {faq.answer}

@@ -19,7 +19,7 @@ const services = [
             "Customized False Ceiling & Lighting",
             "45–90 Days Target Handover",
         ],
-        image: "/Images/Services/full-home-interior.webp",
+        image: "/Images/Services/Image1.webp",
         imageAlt: "Luxury full home interior with refined contemporary finishes",
         caption: "KR Decor Signature Build",
         location: "Jasola Apollo Studio, New Delhi",
@@ -37,7 +37,7 @@ const services = [
             "Ergonomic Island & Parallel Layouts",
             "Anti-Fingerprint Premium Finishes",
         ],
-        image: "/Images/Services/modular-kitchen.webp",
+        image: "/Images/Services/Image2.webp",
         imageAlt: "Contemporary modular kitchen with premium cabinetry",
         caption: "KR Decor Signature Build",
         location: "Jasola Apollo Studio, New Delhi",
@@ -55,12 +55,16 @@ const services = [
             "Space-Saving Storage Solutions",
             "Premium Finishes & Hardware",
         ],
-        image: "/Images/Services/modular-wardrobe.webp",
+        image: "/Images/Services/Image2.webp",
         imageAlt: "Custom modular wardrobe with elegant modern finishes",
         caption: "Designed Around You",
         location: "KR Decor, New Delhi",
     },
 ];
+
+const MainHeading = "Services Shaped"
+const MainContent = `Delivering architectural distinction and quiet luxury interiors
+                        from our studio in Jasola Apollo, New Delhi.`
 
 export default function ServicesShaped() {
     // Start with Modular Kitchen active, as in the reference.
@@ -80,13 +84,12 @@ export default function ServicesShaped() {
                             id="services-shaped-heading"
                             className="font-serif text-[38px] leading-[1.08] tracking-[-0.045em] sm:text-5xl lg:text-[56px]"
                         >
-                            Services Shaped
+                            {MainHeading}
                         </h1>
                     </div>
 
                     <p className="max-w-87.5 text-sm leading-6 text-neutral-500 md:ml-auto md:text-[16px]">
-                        Delivering architectural distinction and quiet luxury interiors
-                        from our studio in Jasola Apollo, New Delhi.
+                        {MainContent}
                     </p>
                 </div>
 
@@ -105,8 +108,8 @@ export default function ServicesShaped() {
                                 onClick={() => setActiveIndex(index)}
                                 aria-pressed={isActive}
                                 className={`group flex min-h-22 items-center justify-between gap-4 border px-5 py-4 text-left transition-all duration-300 sm:min-h-19 sm:px-4 lg:px-5 ${isActive
-                                        ? "border-black bg-[#090909] text-white shadow-[0_12px_24px_rgba(0,0,0,0.12)]"
-                                        : "border-neutral-100 bg-[#fdfdfd] text-neutral-900 hover:border-neutral-300 hover:bg-neutral-50"
+                                    ? "border-black bg-[#090909] text-white shadow-[0_12px_24px_rgba(0,0,0,0.12)]"
+                                    : "border-neutral-100 bg-[#fdfdfd] text-neutral-900 hover:border-neutral-300 hover:bg-neutral-50"
                                     }`}
                             >
                                 <span className="min-w-0">

@@ -7,8 +7,8 @@ export default function HomeInterior()
 {
   const detail={
     image:"/images/About/AboutImage1.webp",
-    title:"ABOUT US",
-    description:"Discover the vision, precision craftsmanship, and quiet luxury behind KR Decor's bespoke interior solutions.",
+    title:"FULL HOME INTERIOR",
+    description:`Curating bespoke, light-filled living spaces and turnkey architectural solutions with quiet luxury and uncompromising precision.`,
     imageAlt:"ABOUT BG"
   }
   return (

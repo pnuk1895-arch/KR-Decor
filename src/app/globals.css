@@ -51,4 +51,23 @@ body {
   }
 }
 
+/* icons  */
+
+.animate-ring {
+  animation: Variant 1s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes Variant {
+  0% {
+    transform: scale(0);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
+
 

@@ -6,14 +6,14 @@ import Link from "next/link";
 import { FaInstagram, FaFacebookF, FaArrowUp } from "react-icons/fa";
 
 const navigationLinks = [
-    { label: "About Us", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Home Interior", href: "/home-interior" },
-    { label: "Modular Kitchen", href: "/modular-kitchen" },
-    { label: "Modular Wardrobe", href: "/modular-wardrobe" },
-    { label: "Our Work", href: "/our-work" },
-    { label: "Our Teams", href: "/our-teams" },
-    { label: "Career", href: "/career" },
+    { label: "About Us", href: "/About" },
+    { label: "Services", href: "/Services" },
+    { label: "Home Interior", href: "/Home-Interior" },
+    { label: "Modular Kitchen", href: "/Modular-Kitchen" },
+    { label: "Modular Wardrobe", href: "/Modular-Wardrobe" },
+    { label: "Our Work", href: "/Work" },
+    { label: "Our Teams", href: "/Our-Teams" },
+    { label: "Career", href: "/Career" },
 ];
 
 const Logo="/Images/KR_Decor_logo.svg"
@@ -187,8 +187,8 @@ export default function Footer() {
             </div>
 
             {/* Copyright and legal links */}
-            <div className="mx-auto max-w-[1600px] px-6 pb-7 pt-5 sm:px-8 sm:pb-8 sm:pt-6 md:px-10 lg:px-16 xl:px-20">
-                <div className="flex flex-col items-center gap-3 border-t border-[#EEEEEE] pt-5 text-center">
+            <div className="mx-auto max-w-screen-2xl w-full px-6 pb-7 pt-5 sm:px-8 sm:pb-8 sm:pt-6 md:px-10 lg:px-16 xl:px-20">
+                <div className="flex flex-col items-center gap-3 border-t border-[#EEEEEE] pt-5 text-center lg:flex-row justify-between ">
                     <p className="text-[12px] font-medium uppercase leading-[1.3] tracking-[0.12em] text-[#777777] sm:text-[12px] sm:tracking-[0.14em]">
                         © 2026 KR Decor. All rights reserved.
                     </p>
@@ -207,14 +207,14 @@ export default function Footer() {
 
                     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 ">
                         <Link
-                            href="/privacy-policy"
+                            href="/Privacy"
                             className="text-[11px] font-normal uppercase leading-[1.7] tracking-[0.12em] text-[#777777] transition-colors hover:text-[#171717] sm:text-[12px]"
                         >
                             Privacy Policy
                         </Link>
 
                         <Link
-                            href="/terms-and-conditions"
+                            href="/Terms"
                             className="text-[11px] font-normal uppercase leading-[1.7] tracking-[0.12em] text-[#777777] transition-colors hover:text-[#171717] sm:text-[10px]"
                         >
                             Terms &amp; Conditions

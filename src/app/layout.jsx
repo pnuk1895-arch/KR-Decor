@@ -2,6 +2,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/component/CommonComponent/Header";
 import Footer from "@/component/CommonComponent/Footer";
+import WhatsAppConcierge from "@/component/CommonComponent/Floating_whatsaap/icons";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -33,6 +34,8 @@ export default function RootLayout({ children }) {
           <Header/>
           {children}
           <Footer/>
+
+          <WhatsAppConcierge/>
         </>
       </body>
     </html>

@@ -1,6 +1,10 @@
-"use client"
 
+"use client";
+
+import { useEffect, useRef } from "react";
 import { ArrowDown } from "lucide-react";
+
+import "../../../style/AboutComponentCss/Process.css";
 
 const processSteps = [
     {
@@ -61,16 +65,76 @@ const processSteps = [
 ];
 
 export default function OurProcess() {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+
+        if (!section) return;
+
+        const elements = section.querySelectorAll("[data-process-reveal]");
+        const track = section.querySelector("[data-process-track]");
+
+        const showAll = () => {
+            elements.forEach((element) => {
+                element.classList.add("process-is-visible");
+            });
+
+            track?.classList.add("process-track-visible");
+        };
+
+        if (
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+            typeof IntersectionObserver === "undefined"
+        ) {
+            showAll();
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+
+                    const element = entry.target;
+                    const delay = Number(element.dataset.processDelay || 0);
+
+                    element.style.setProperty(
+                        "--process-reveal-delay",
+                        `${delay * 100}ms`
+                    );
+
+                    element.classList.add("process-is-visible");
+                    track?.classList.add("process-track-visible");
+
+                    // Reveal each element only once.
+                    observer.unobserve(element);
+                });
+            },
+            {
+                threshold: 0.15,
+                rootMargin: "0px 0px -40px 0px",
+            }
+        );
+
+        elements.forEach((element) => observer.observe(element));
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <section
+            ref={sectionRef}
             aria-labelledby="our-process-heading"
             className="w-full overflow-hidden bg-white py-4 text-neutral-900 lg:py-10"
         >
-            <div className="mx-auto w-full max-w-screen-2xl px-5 sm:px-8 md:px-10 lg:px-12 xl:px-18 ">
+            <div className="mx-auto w-full max-w-screen-2xl px-5 sm:px-8 md:px-10 lg:px-12 xl:px-18">
+
                 {/* Section heading */}
                 <div className="border-b border-neutral-200 pb-6 sm:pb-8">
                     <h2
                         id="our-process-heading"
+                        data-process-reveal="heading"
                         className="max-w-2xl font-serif text-4xl leading-tight tracking-tight sm:text-5xl lg:text-6xl"
                     >
                         Our Process
@@ -78,10 +142,11 @@ export default function OurProcess() {
                 </div>
 
                 {/* Timeline */}
-
                 <div className="relative mx-auto mt-10 max-w-5xl sm:mt-14">
+
                     {/* Timeline line */}
                     <div
+                        data-process-track
                         aria-hidden="true"
                         className="absolute bottom-2 left-4 top-2 border-l border-dashed border-neutral-300 md:left-1/2 md:-translate-x-1/2"
                     >
@@ -99,10 +164,14 @@ export default function OurProcess() {
                         return (
                             <article
                                 key={step.title}
+                                data-process-reveal="step"
+                                data-process-delay={index % 4}
+                                data-process-item
                                 className="group relative grid grid-cols-[2rem_minmax(0,1fr)] pb-12 last:pb-0 sm:pb-16 md:grid-cols-2"
                             >
                                 {/* Timeline marker */}
                                 <span
+                                    data-process-marker
                                     aria-hidden="true"
                                     className="absolute left-4 top-5 z-10 size-2.5 -translate-x-1/2 rounded-full border border-neutral-800 bg-white ring-4 ring-white transition-transform duration-300 group-hover:scale-125 group-hover:bg-black md:left-1/2 md:top-1/2 md:-translate-y-1/2"
                                 />
@@ -117,7 +186,10 @@ export default function OurProcess() {
                                             : "md:col-start-2 md:justify-start md:pl-12 lg:pl-20 md:text-left",
                                     ].join(" ")}
                                 >
-                                    <div className="max-w-md">
+                                    <div
+                                        data-process-content
+                                        className="max-w-md"
+                                    >
                                         <span className="font-serif text-4xl leading-none text-neutral-200 transition-colors duration-300 group-hover:text-neutral-400 sm:text-5xl lg:text-6xl">
                                             /{stepNumber}
                                         </span>
@@ -135,7 +207,6 @@ export default function OurProcess() {
                         );
                     })}
                 </div>
-
             </div>
         </section>
     );

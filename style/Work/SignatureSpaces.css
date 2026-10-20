@@ -1,0 +1,217 @@
+
+/* =========================================
+   SIGNATURE SPACES — SCROLL REVEAL
+========================================= */
+
+[data-space-reveal] {
+  opacity: 0;
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1050ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--space-reveal-delay, 0ms);
+  backface-visibility: hidden;
+}
+
+[data-space-reveal="left"] {
+  transform:
+    perspective(1100px)
+    translate3d(-28px, 0, 0)
+    rotateY(2deg)
+    scale(0.99);
+  transform-origin: left center;
+}
+
+[data-space-reveal="up"] {
+  transform:
+    perspective(1100px)
+    translate3d(0, 30px, 0)
+    rotateX(2deg)
+    scale(0.99);
+  transform-origin: center bottom;
+}
+
+[data-space-reveal].space-reveal-visible {
+  opacity: 1;
+  transform:
+    perspective(1100px)
+    translate3d(0, 0, 0)
+    rotateX(0)
+    rotateY(0)
+    scale(1);
+}
+
+
+/* =========================================
+   SIGNATURE SPACES — IMAGE FRAME
+========================================= */
+
+[data-space-image] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #e9e7e2;
+  transition:
+    box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-space-image] .space-image-media {
+  transform: scale(1.055);
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition:
+    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+}
+
+/* Settle the image after it enters the viewport */
+
+.space-reveal-visible [data-space-image] .space-image-media {
+  transform: scale(1);
+}
+
+
+/* =========================================
+   SIGNATURE SPACES — IMAGE WIPE
+========================================= */
+
+[data-space-image]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: #e9e7e2;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 1100ms cubic-bezier(0.77, 0, 0.18, 1);
+  transition-delay:
+    calc(var(--space-reveal-delay, 0ms) + 100ms);
+}
+
+.space-reveal-visible [data-space-image]::before {
+  transform: translate3d(101%, 0, 0);
+}
+
+
+/* =========================================
+   SIGNATURE SPACES — DIAGONAL SHINE
+========================================= */
+
+[data-space-image]::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -65%;
+  z-index: 3;
+  width: 42%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(255 255 255 / 5%) 20%,
+    rgb(255 255 255 / 22%) 38%,
+    rgb(255 255 255 / 60%) 50%,
+    rgb(255 255 255 / 22%) 62%,
+    rgb(255 255 255 / 5%) 80%,
+    transparent 100%
+  );
+
+  opacity: 0;
+  transform: translate3d(0, 0, 0) skewX(-18deg);
+  transition:
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease;
+}
+
+
+/* =========================================
+   SIGNATURE SPACES — PREMIUM HOVER
+========================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  [data-space-image]:hover {
+    box-shadow: 0 16px 36px rgb(0 0 0 / 12%);
+  }
+
+  [data-space-image]:hover .space-image-media {
+    transform: scale(1.045);
+    filter: brightness(0.96) saturate(1.03);
+  }
+
+  [data-space-image]:hover::after {
+    opacity: 1;
+    transform: translate3d(390%, 0, 0) skewX(-18deg);
+  }
+}
+
+
+/* =========================================
+   SIGNATURE SPACES — TEXT TILE ENTRANCE
+========================================= */
+
+[data-space-copy] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Heading enters first */
+
+.space-reveal-visible [data-space-copy]:first-child {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay:
+    calc(var(--space-reveal-delay, 0ms) + 150ms);
+}
+
+/* Description follows */
+
+.space-reveal-visible [data-space-copy]:last-child {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay:
+    calc(var(--space-reveal-delay, 0ms) + 270ms);
+}
+
+
+/* =========================================
+   ACCESSIBILITY — REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-space-reveal],
+  [data-space-image],
+  [data-space-image] .space-image-media,
+  [data-space-image]::before,
+  [data-space-image]::after,
+  [data-space-copy] {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  [data-space-reveal],
+  [data-space-copy] {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-space-image] .space-image-media {
+    transform: none;
+    filter: none;
+  }
+
+  [data-space-image]::before,
+  [data-space-image]::after {
+    display: none;
+  }
+
+  [data-space-image] {
+    box-shadow: none;
+  }
+}
+    

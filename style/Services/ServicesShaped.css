@@ -1,0 +1,318 @@
+
+/* =========================================
+   SERVICES SHAPED — SCROLL REVEAL
+========================================= */
+
+[data-ss-reveal] {
+  opacity: 0;
+  transition:
+    opacity 850ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--ss-reveal-delay, 0ms);
+  backface-visibility: hidden;
+}
+
+[data-ss-reveal="left"] {
+  transform:
+    perspective(1100px)
+    translate3d(-28px, 0, 0)
+    rotateY(2deg)
+    scale(0.99);
+}
+
+[data-ss-reveal="right"] {
+  transform:
+    perspective(1100px)
+    translate3d(28px, 0, 0)
+    rotateY(-2deg)
+    scale(0.99);
+}
+
+[data-ss-reveal="up"] {
+  transform:
+    perspective(1100px)
+    translate3d(0, 26px, 0)
+    rotateX(2deg)
+    scale(0.99);
+}
+
+[data-ss-reveal].ss-is-visible {
+  opacity: 1;
+  transform:
+    perspective(1100px)
+    translate3d(0, 0, 0)
+    rotateX(0)
+    rotateY(0)
+    scale(1);
+}
+
+[data-ss-reveal]:not(.ss-is-visible) {
+  will-change: opacity, transform;
+}
+
+
+/* =========================================
+   SERVICE SELECTORS — PREMIUM HOVER
+========================================= */
+
+.services-shaped-selector {
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color 350ms ease,
+    border-color 350ms ease,
+    box-shadow 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Fine highlight sweep */
+
+.services-shaped-selector::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  left: -85%;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgb(255 255 255 / 12%),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition:
+    left 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .services-shaped-selector:hover {
+    transform: translateY(-2px);
+  }
+
+  .services-shaped-selector:hover::after {
+    left: 145%;
+  }
+}
+
+
+/* =========================================
+   ACTIVE SERVICE — CONTENT ENTRANCE
+========================================= */
+
+.services-shaped-detail {
+  transform-origin: center top;
+}
+
+/* Stagger the detail content */
+
+[data-ss-detail-piece] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--ss-piece-delay, 0ms);
+}
+
+.services-shaped-detail.ss-is-visible [data-ss-detail-piece] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Feature cards enter sequentially */
+
+[data-ss-feature] {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition:
+    opacity 550ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 350ms ease;
+}
+
+.services-shaped-detail.ss-is-visible [data-ss-feature] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: var(--ss-feature-delay, 0ms);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-ss-feature]:hover {
+    background-color: #efefef;
+  }
+}
+
+
+/* =========================================
+   SERVICE IMAGE — FRAME & REVEAL
+========================================= */
+
+[data-ss-image] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #e9e7e2;
+  box-shadow: 0 0 0 rgb(0 0 0 / 0%);
+  transition:
+    box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Slight initial zoom */
+
+.services-shaped-image-media {
+  transform: scale(1.055);
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition:
+    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+}
+
+.services-shaped-detail.ss-is-visible
+.services-shaped-image-media {
+  transform: scale(1);
+}
+
+
+/* =========================================
+   SERVICE IMAGE — WIPE REVEAL
+========================================= */
+
+[data-ss-image]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: #e9e7e2;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 1100ms cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.services-shaped-detail.ss-is-visible [data-ss-image]::before {
+  transform: translate3d(101%, 0, 0);
+}
+
+
+/* =========================================
+   SERVICE IMAGE — DIAGONAL SHINE
+========================================= */
+
+[data-ss-image]::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -65%;
+  z-index: 4;
+  width: 42%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(255 255 255 / 5%) 20%,
+    rgb(255 255 255 / 22%) 38%,
+    rgb(255 255 255 / 60%) 50%,
+    rgb(255 255 255 / 22%) 62%,
+    rgb(255 255 255 / 5%) 80%,
+    transparent 100%
+  );
+
+  opacity: 0;
+  transform: translate3d(0, 0, 0) skewX(-18deg);
+  transition:
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-ss-image]:hover {
+    box-shadow: 0 18px 42px rgb(0 0 0 / 12%);
+  }
+
+  [data-ss-image]:hover .services-shaped-image-media {
+    transform: scale(1.045);
+    filter: brightness(0.96) saturate(1.03);
+  }
+
+  [data-ss-image]:hover::after {
+    opacity: 1;
+    transform: translate3d(390%, 0, 0) skewX(-18deg);
+  }
+}
+
+/* Keep caption above the image effects */
+
+.services-shaped-caption {
+  z-index: 10;
+}
+
+
+/* =========================================
+   ENQUIRY LINK — REFINED INTERACTION
+========================================= */
+
+.services-shaped-enquiry {
+  transition:
+    color 350ms ease,
+    border-color 350ms ease;
+}
+
+.services-shaped-enquiry svg {
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .services-shaped-enquiry:hover {
+    color: #555;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY — REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ss-reveal],
+  .services-shaped-selector,
+  .services-shaped-selector::after,
+  [data-ss-detail-piece],
+  [data-ss-feature],
+  [data-ss-image],
+  .services-shaped-image-media,
+  [data-ss-image]::before,
+  [data-ss-image]::after,
+  .services-shaped-enquiry,
+  .services-shaped-enquiry svg {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  [data-ss-reveal],
+  [data-ss-detail-piece],
+  [data-ss-feature] {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-ss-image]::before,
+  [data-ss-image]::after,
+  .services-shaped-selector::after {
+    display: none;
+  }
+
+  .services-shaped-image-media {
+    transform: none;
+    filter: none;
+  }
+
+  [data-ss-image] {
+    box-shadow: none;
+  }
+}

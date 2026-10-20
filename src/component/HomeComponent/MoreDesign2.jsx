@@ -1,6 +1,9 @@
 
+"use client";
 
-import { useRef } from "react";
+import "../../../style/Solution2.css"
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -59,20 +62,80 @@ const solutions = [
   },
 ];
 
-const MainHeading="Smart interior solutions for modern living"
+const MainHeading = "Smart interior solutions for modern living";
 
 export default function SolutionsSection2Client() {
   const swiperRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const elements = section.querySelectorAll("[data-solutions-reveal]");
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduceMotion) {
+      elements.forEach((element) => {
+        element.classList.add("solutions-is-visible");
+      });
+
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const element = entry.target;
+          const delay = Number(element.dataset.revealDelay || 0);
+
+          element.style.setProperty(
+            "--solutions-reveal-delay",
+            `${delay * 120}ms`
+          );
+
+          element.classList.add("solutions-is-visible");
+
+          // Reveal each element only once.
+          observer.unobserve(element);
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -35px 0px",
+      }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="w-full overflow-x-hidden bg-[#f5f5f3] text-black">
+    <section
+      ref={sectionRef}
+      className="w-full overflow-x-hidden bg-[#f5f5f3] text-black"
+    >
       <div className="mx-auto max-w-screen-2xl px-5 py-16 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
         <div className="flex flex-col items-start justify-between gap-10 border-b border-black/10 pb-8 sm:gap-6 sm:pb-10 md:flex-row md:items-end lg:pb-12">
-          <h2 className="max-w-162.5 font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-6xl">
+          <h2
+            data-solutions-reveal="left"
+            className="max-w-162.5 font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-6xl"
+          >
             {MainHeading}
           </h2>
 
-          <div className="mb-1 flex shrink-0 items-center gap-6 sm:gap-5">
+          <div
+            data-solutions-reveal="right"
+            data-reveal-delay="1"
+            className="mb-1 flex shrink-0 items-center gap-6 sm:gap-5"
+          >
             <button
               type="button"
               aria-label="Previous projects"
@@ -118,10 +181,17 @@ export default function SolutionsSection2Client() {
             }}
             className="overflow-hidden"
           >
-            {solutions.map((solution) => (
+            {solutions.map((solution, index) => (
               <SwiperSlide key={solution.number} className="h-auto">
-                <article className="group/project min-w-0">
-                  <div className="relative h-70 w-full overflow-hidden bg-neutral-200 sm:h-80 lg:h-90">
+                <article
+                  data-solutions-reveal="up"
+                  data-reveal-delay={index}
+                  className="group/project min-w-0"
+                >
+                  <div
+                    data-solutions-image
+                    className="relative h-70 w-full overflow-hidden bg-neutral-200 sm:h-80 lg:h-90"
+                  >
                     <Image
                       src={solution.image}
                       alt={solution.alt}

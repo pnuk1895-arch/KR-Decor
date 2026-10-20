@@ -1,9 +1,12 @@
+
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
+
+import "../../../style/Services/ServicesShaped.css";
 
 const services = [
     {
@@ -62,24 +65,106 @@ const services = [
     },
 ];
 
-const MainHeading = "Services Shaped"
-const MainContent = `Delivering architectural distinction and quiet luxury interiors
-                        from our studio in Jasola Apollo, New Delhi.`
+const MainHeading = "Services Shaped";
+
+const MainContent =
+    "Delivering architectural distinction and quiet luxury interiors from our studio in Jasola Apollo, New Delhi.";
 
 export default function ServicesShaped() {
-    // Start with Modular Kitchen active, as in the reference.
     const [activeIndex, setActiveIndex] = useState(1);
+    const sectionRef = useRef(null);
+
     const activeService = services[activeIndex];
+
+    useEffect(() => {
+        const section = sectionRef.current;
+
+        if (!section) return;
+
+        const elements = new WeakSet();
+
+        const revealAll = () => {
+            section.querySelectorAll("[data-ss-reveal]").forEach((element) => {
+                element.classList.add("ss-is-visible");
+            });
+        };
+
+        const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        if (
+            reduceMotion ||
+            typeof IntersectionObserver === "undefined"
+        ) {
+            revealAll();
+            return;
+        }
+
+        const revealObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+
+                    entry.target.classList.add("ss-is-visible");
+                    revealObserver.unobserve(entry.target);
+                });
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -35px 0px",
+            }
+        );
+
+        const observeRevealElements = (root) => {
+            if (root.nodeType !== 1) return;
+
+            if (root.matches("[data-ss-reveal]") && !elements.has(root)) {
+                elements.add(root);
+                revealObserver.observe(root);
+            }
+
+            root.querySelectorAll("[data-ss-reveal]").forEach((element) => {
+                if (elements.has(element)) return;
+                elements.add(element);
+                revealObserver.observe(element);
+            });
+        };
+
+        observeRevealElements(section);
+
+        // Also observe newly mounted content when a service is selected.
+        const mutationObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach(observeRevealElements);
+            });
+        });
+
+        mutationObserver.observe(section, {
+            childList: true,
+            subtree: true,
+        });
+
+        return () => {
+            revealObserver.disconnect();
+            mutationObserver.disconnect();
+        };
+    }, []);
 
     return (
         <section
+            ref={sectionRef}
             aria-labelledby="services-shaped-heading"
-            className="overflow-hidden bg-white py-16 text-neutral-950 sm:py-20 lg:py-24 "
+            className="services-shaped-section overflow-hidden bg-white py-16 text-neutral-950 sm:py-20 lg:py-24"
         >
-            <div className="mx-auto w-full max-w-screen-2xl px-5 sm:px-8 md:px-10 lg:px-12 xl:px-18 ">
+            <div className="mx-auto w-full max-w-screen-2xl px-5 sm:px-8 md:px-10 lg:px-12 xl:px-18">
+
                 {/* Section heading */}
                 <div className="grid gap-6 border-b border-neutral-200 pb-10 md:grid-cols-2 md:items-end md:gap-8 lg:pb-12">
-                    <div className="self-start">
+                    <div
+                        data-ss-reveal="left"
+                        className="self-start"
+                    >
                         <h1
                             id="services-shaped-heading"
                             className="font-serif text-[38px] leading-[1.08] tracking-[-0.045em] sm:text-5xl lg:text-[56px]"
@@ -88,7 +173,10 @@ export default function ServicesShaped() {
                         </h1>
                     </div>
 
-                    <p className="max-w-87.5 text-sm leading-6 text-neutral-500 md:ml-auto md:text-[16px]">
+                    <p
+                        data-ss-reveal="right"
+                        className="max-w-87.5 text-sm leading-6 text-neutral-500 md:ml-auto md:text-[16px]"
+                    >
                         {MainContent}
                     </p>
                 </div>
@@ -105,11 +193,13 @@ export default function ServicesShaped() {
                             <button
                                 key={service.id}
                                 type="button"
+                                data-ss-reveal="up"
+                                data-ss-delay={index}
                                 onClick={() => setActiveIndex(index)}
                                 aria-pressed={isActive}
-                                className={`group flex min-h-22 items-center justify-between gap-4 border px-5 py-4 text-left transition-all duration-300 sm:min-h-19 sm:px-4 lg:px-5 ${isActive
-                                    ? "border-black bg-[#090909] text-white shadow-[0_12px_24px_rgba(0,0,0,0.12)]"
-                                    : "border-neutral-100 bg-[#fdfdfd] text-neutral-900 hover:border-neutral-300 hover:bg-neutral-50"
+                                className={`services-shaped-selector group flex min-h-22 items-center justify-between gap-4 border px-5 py-4 text-left transition-all duration-300 sm:min-h-19 sm:px-4 lg:px-5 ${isActive
+                                        ? "border-black bg-[#090909] text-white shadow-[0_12px_24px_rgba(0,0,0,0.12)]"
+                                        : "border-neutral-100 bg-[#fdfdfd] text-neutral-900 hover:border-neutral-300 hover:bg-neutral-50"
                                     }`}
                             >
                                 <span className="min-w-0">
@@ -120,7 +210,7 @@ export default function ServicesShaped() {
                                         {service.id}
                                     </span>
 
-                                    <span className="block font-heading text-[17px] uppercase leading-tight sm:text-[20px] ">
+                                    <span className="block font-heading text-[17px] uppercase leading-tight sm:text-[20px]">
                                         {service.name}
                                     </span>
                                 </span>
@@ -140,35 +230,56 @@ export default function ServicesShaped() {
                 {/* Active service content */}
                 <div
                     key={activeService.id}
-                    className="grid gap-9 pt-12 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pt-12 xl:gap-16"
+                    data-ss-reveal="up"
+                    className="services-shaped-detail grid gap-9 pt-12 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pt-12 xl:gap-16"
                 >
                     {/* Text content */}
                     <div className="flex min-w-0 flex-col self-start items-start gap-2">
-                        <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-neutral-500 sm:text-[12px]">
+                        <p
+                            data-ss-detail-piece
+                            style={{ "--ss-piece-delay": "80ms" }}
+                            className="text-[12px] font-semibold uppercase tracking-[0.2em] text-neutral-500 sm:text-[12px]"
+                        >
                             /{activeService.id} — {activeService.name}
                         </p>
 
-                        <h2 className="mt-4 max-w-130 font-heading text-[30px] uppercase leading-[1.08] tracking-tight sm:text-5xl lg:text-[52px] xl:text-[42px]">
+                        <h2
+                            data-ss-detail-piece
+                            style={{ "--ss-piece-delay": "150ms" }}
+                            className="mt-4 max-w-130 font-heading text-[30px] uppercase leading-[1.08] tracking-tight sm:text-5xl lg:text-[52px] xl:text-[42px]"
+                        >
                             {activeService.heading}
                         </h2>
 
-                        <p className="mt-3 text-[12px] font-medium uppercase tracking-[0.15em] text-neutral-500 sm:text-[12px]">
+                        <p
+                            data-ss-detail-piece
+                            style={{ "--ss-piece-delay": "220ms" }}
+                            className="mt-3 text-[12px] font-medium uppercase tracking-[0.15em] text-neutral-500 sm:text-[12px]"
+                        >
                             {activeService.subtitle}
                         </p>
 
-                        <p className="mt-6 max-w-135 text-[15px] brightness-150 leading-[1.8] text-neutral-600 sm:text-[16px]">
+                        <p
+                            data-ss-detail-piece
+                            style={{ "--ss-piece-delay": "290ms" }}
+                            className="mt-6 max-w-135 text-[15px] brightness-150 leading-[1.8] text-neutral-600 sm:text-[16px]"
+                        >
                             {activeService.description}
                         </p>
 
                         {/* Feature cards */}
                         <ul className="mt-6 grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
-                            {activeService.features.map((feature) => (
+                            {activeService.features.map((feature, index) => (
                                 <li
                                     key={feature}
+                                    data-ss-feature
+                                    style={{ "--ss-feature-delay": `${index * 70}ms` }}
                                     className="flex min-h-13 items-center gap-3 bg-[#f8f8f8] px-3 py-3 text-[12px] font-semibold uppercase leading-normal tracking-[0.035em] text-neutral-800 sm:min-h-14.5 sm:px-4"
                                 >
-                                    <span
-                                        className="h-2 w-2 shrink-0 rounded-full bg-black"
+                                    <Check
+                                        size={15}
+                                        strokeWidth={1.8}
+                                        className="shrink-0 text-neutral-700"
                                         aria-hidden="true"
                                     />
                                     <span>{feature}</span>
@@ -179,7 +290,9 @@ export default function ServicesShaped() {
                         {/* Enquiry link */}
                         <Link
                             href="/contact"
-                            className="group mt-14 inline-flex items-center gap-4 border-b border-neutral-300 pb-2 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 hover:border-black sm:mt-8 sm:text-xs"
+                            data-ss-detail-piece
+                            style={{ "--ss-piece-delay": "420ms" }}
+                            className="services-shaped-enquiry group mt-14 inline-flex items-center gap-4 border-b border-neutral-300 pb-2 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 hover:border-black sm:mt-8 sm:text-xs"
                         >
                             Enquire About This Service
 
@@ -194,17 +307,20 @@ export default function ServicesShaped() {
 
                     {/* Image and caption */}
                     <div className="min-w-0">
-                        <div className="relative aspect-4/4 w-full overflow-hidden bg-neutral-100 sm:aspect-4/3.5 lg:aspect-square">
+                        <div
+                            data-ss-image
+                            className="services-shaped-image relative aspect-4/4 w-full overflow-hidden bg-neutral-100 sm:aspect-4/3.5 lg:aspect-square"
+                        >
                             <Image
                                 src={activeService.image}
                                 alt={activeService.imageAlt}
                                 fill
                                 sizes="(max-width: 639px) 90vw, (max-width: 1023px) 80vw, 44vw"
-                                className="object-cover transition-transform duration-700 hover:scale-[1.03]"
+                                className="services-shaped-image-media object-cover transition-transform duration-700 hover:scale-[1.03]"
                             />
 
                             {/* Bottom image caption */}
-                            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 bg-white px-4 py-4 sm:inset-x-5 sm:bottom-5 sm:px-5 sm:py-5">
+                            <div className="services-shaped-caption absolute inset-x-4 bottom-4 z-10 flex items-center justify-between gap-3 bg-white px-4 py-4 sm:inset-x-5 sm:bottom-5 sm:px-5 sm:py-5">
                                 <div className="min-w-0">
                                     <p className="font-serif text-[14px] uppercase leading-tight text-neutral-800 sm:text-base">
                                         {activeService.caption}
@@ -220,8 +336,6 @@ export default function ServicesShaped() {
                                 </span>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

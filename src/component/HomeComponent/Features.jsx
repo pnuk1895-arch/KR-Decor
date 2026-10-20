@@ -1,8 +1,10 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Plus, Minus } from "lucide-react";
+
+import "../../../style/features.css";
 
 const faqs = [
   {
@@ -32,37 +34,95 @@ const faqs = [
   },
 ];
 
-const MainHeading = "Frequently Asked Questions"
-const MainContent = `Find answers to common questions about our design process, timelines, and execution methodology.`
+const MainHeading = "Frequently Asked Questions";
+
+const MainContent =
+  "Find answers to common questions about our design process, timelines, and execution methodology.";
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(-1);
+  const sectionRef = useRef(null);
 
   const toggleFAQ = (index) => {
     setOpenIndex((current) => (current === index ? -1 : index));
   };
 
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const elements = section.querySelectorAll("[data-faq-reveal]");
+
+    const showAll = () => {
+      elements.forEach((element) => {
+        element.classList.add("faq-is-visible");
+      });
+    };
+
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      typeof IntersectionObserver === "undefined"
+    ) {
+      showAll();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const element = entry.target;
+          const delay = Number(element.dataset.faqDelay || 0);
+
+          element.style.setProperty(
+            "--faq-reveal-delay",
+            `${delay * 100}ms`
+          );
+
+          element.classList.add("faq-is-visible");
+          observer.unobserve(element);
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px",
+      }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="w-full bg-white text-black">
+    <section
+      ref={sectionRef}
+      className="w-full bg-white text-black"
+    >
       <div className="mx-auto w-full max-w-screen-2xl px-5 py-16 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
-        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-7 md:gap-8 lg:gap-14 xl:gap-16">
+        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-5">
 
           {/* Left: FAQ heading and description */}
-          <div className="min-w-0 md:col-span-3 md:self-center">
-            <h2 className="font-heading text-4xl font-normal leading-[1.12] tracking-[-0.035em] sm:text-5xl lg:text-[clamp(2.5rem,12vw,4rem)]">
+          <div
+            data-faq-reveal="left"
+            className="col-span-2 min-w-0 md:translate-y-1/2 md:self-start"
+          >
+            <h2 className="font-heading text-4xl font-normal leading-[1.12] tracking-[-0.035em] sm:text-5xl lg:text-6xl">
               {MainHeading.split(" ")[0]}
               <span className="md:block">
-              {MainHeading.split("Frequently")[1]}
+                {MainHeading.split(" ").slice(1).join(" ")}
               </span>
             </h2>
 
-            <p className="mt-5 max-w-md text-sm font-normal leading-6 tracking-[0.015em] text-neutral-500 sm:mt-6 sm:text-base sm:leading-7">
+            <p className="mt-5 max-w-md text-sm font-normal leading-6 tracking-wide text-neutral-500 sm:mt-6 sm:text-base sm:leading-7">
               {MainContent}
             </p>
           </div>
 
           {/* Right: FAQ accordion */}
-          <div className="min-w-0 md:col-span-4">
+          <div className="col-span-3 min-w-0">
             <div className="border-t border-neutral-200">
               {faqs.map((faq, index) => {
                 const isOpen = openIndex === index;
@@ -71,53 +131,62 @@ export default function FAQSection() {
                 return (
                   <article
                     key={faq.question}
+                    data-faq-reveal="up"
+                    data-faq-delay={index}
+                    data-faq-item
+                    data-faq-open={isOpen ? "true" : "false"}
                     className="border-b border-neutral-100"
                   >
                     <button
                       type="button"
+                      data-faq-trigger
                       onClick={() => toggleFAQ(index)}
                       aria-expanded={isOpen}
                       aria-controls={answerId}
                       className="group flex w-full items-start justify-between gap-4 py-5 text-left sm:items-center sm:gap-6 sm:py-6 lg:py-7"
                     >
-                      <span className="min-w-0 flex-1 font-heading text-base font-normal leading-[1.45] text-neutral-800 transition-colors duration-300 group-hover:text-black sm:text-lg lg:text-xl">
+                      <span className="min-w-0 flex-1 font-heading text-base font-normal leading-[1.45] text-neutral-800 transition-colors duration-300 group-hover:text-black sm:text-lg lg:text-2xl">
                         {faq.question}
                       </span>
 
                       <span className="relative mt-0.5 flex size-6 shrink-0 items-center justify-center text-neutral-500 transition-colors duration-300 group-hover:text-black sm:mt-0">
                         <Plus
+                          aria-hidden="true"
                           size={22}
                           strokeWidth={1.3}
                           className={`absolute transition-all duration-300 ease-in-out ${isOpen
-                            ? "rotate-90 scale-50 opacity-0"
-                            : "rotate-0 scale-100 opacity-100"
+                              ? "rotate-90 scale-50 opacity-0"
+                              : "rotate-0 scale-100 opacity-100"
                             }`}
                         />
 
                         <Minus
+                          aria-hidden="true"
                           size={22}
                           strokeWidth={1.3}
                           className={`absolute transition-all duration-300 ease-in-out ${isOpen
-                            ? "rotate-0 scale-100 opacity-100"
-                            : "-rotate-90 scale-50 opacity-0"
+                              ? "rotate-0 scale-100 opacity-100"
+                              : "-rotate-90 scale-50 opacity-0"
                             }`}
                         />
                       </span>
                     </button>
 
+                    {/* Animated answer panel */}
                     <div
                       id={answerId}
                       aria-hidden={!isOpen}
                       className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isOpen
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
                         }`}
                     >
-                      <div className="overflow-hidden">
+                      <div className="min-h-0 overflow-hidden">
                         <p
+                          data-faq-answer
                           className={`max-w-3xl pb-6 pr-7 text-sm leading-7 tracking-[0.01em] text-neutral-500 transition-transform duration-500 ease-in-out sm:pb-7 sm:text-base ${isOpen
-                            ? "translate-y-0"
-                            : "-translate-y-2"
+                              ? "translate-y-0"
+                              : "-translate-y-2"
                             }`}
                         >
                           {faq.answer}

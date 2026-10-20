@@ -1,0 +1,229 @@
+
+/* =========================================
+   HERO — CINEMATIC BACKGROUND
+========================================= */
+
+.hero-section {
+  --hero-pointer-x: 50%;
+  --hero-pointer-y: 50%;
+  --hero-parallax-x: 0px;
+  --hero-parallax-y: 0px;
+}
+
+.hero-background-image {
+  opacity: 0;
+  transform: translate3d(
+    var(--hero-parallax-x),
+    var(--hero-parallax-y),
+    0
+  ) scale(1.045);
+  transform-origin: center;
+  backface-visibility: hidden;
+  animation: hero-background-enter 1800ms
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition:
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes hero-background-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade the dark overlay in */
+
+.hero-dark-overlay {
+  animation: hero-overlay-enter 1300ms ease-out both;
+}
+
+@keyframes hero-overlay-enter {
+  from {
+    opacity: 0.2;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================
+   HERO — CURSOR-FOLLOWING AMBIENT GLOW
+========================================= */
+
+.hero-cursor-glow {
+  background: radial-gradient(
+    460px circle at var(--hero-pointer-x) var(--hero-pointer-y),
+    rgb(255 255 255 / 16%),
+    rgb(255 255 255 / 5%) 36%,
+    transparent 72%
+  );
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+.hero-section.hero-glow-active .hero-cursor-glow {
+  opacity: 1;
+}
+
+/* Disable parallax when the pointer leaves */
+
+.hero-background-image {
+  will-change: auto;
+}
+
+.hero-section.hero-glow-active .hero-background-image {
+  will-change: transform;
+}
+
+
+/* =========================================
+   HERO — STAGGERED HEADING ENTRANCE
+========================================= */
+
+.hero-title-line {
+  opacity: 0;
+  animation: hero-title-enter 1050ms
+    cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-title-line-1 {
+  animation-delay: 150ms;
+}
+
+.hero-title-line-2 {
+  animation-delay: 320ms;
+}
+
+.hero-title-line-3 {
+  animation-delay: 490ms;
+}
+
+@keyframes hero-title-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 38px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+/* =========================================
+   HERO — DESCRIPTION ENTRANCE
+========================================= */
+
+.hero-copy {
+  opacity: 0;
+  animation: hero-content-enter 950ms
+    cubic-bezier(0.22, 1, 0.36, 1) 680ms forwards;
+}
+
+@keyframes hero-content-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+/* =========================================
+   HERO — INTERACTIVE CTA
+========================================= */
+
+.hero-cta {
+  opacity: 0;
+  animation: hero-content-enter 950ms
+    cubic-bezier(0.22, 1, 0.36, 1) 850ms forwards;
+  transition:
+    border-color 350ms ease,
+    color 350ms ease;
+}
+
+/* Dynamic button glow */
+
+.hero-button-glow {
+  background: radial-gradient(
+    120px circle at var(--button-pointer-x, 50%)
+      var(--button-pointer-y, 50%),
+    rgb(255 255 255 / 24%),
+    transparent 75%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.hero-cta.hero-button-glow-active .hero-button-glow {
+  opacity: 1;
+}
+
+/* Refined text response */
+
+.hero-cta-label {
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    letter-spacing 400ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-cta:hover .hero-cta-label {
+    transform: translateX(2px);
+    letter-spacing: 0.14em;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY — REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background-image,
+  .hero-dark-overlay,
+  .hero-title-line,
+  .hero-copy,
+  .hero-cta,
+  .hero-cta-label,
+  .hero-cursor-glow,
+  .hero-button-glow {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+
+  .hero-background-image {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-dark-overlay,
+  .hero-title-line,
+  .hero-copy,
+  .hero-cta {
+    opacity: 1;
+  }
+
+  .hero-title-line,
+  .hero-copy,
+  .hero-cta-label {
+    transform: none;
+  }
+
+  .hero-cursor-glow,
+  .hero-button-glow {
+    display: none;
+  }
+}

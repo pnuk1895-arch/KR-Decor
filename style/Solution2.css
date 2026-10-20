@@ -1,0 +1,226 @@
+
+/* =========================================
+   SOLUTIONS — CINEMATIC SCROLL REVEAL
+========================================= */
+
+[data-solutions-reveal] {
+  opacity: 0;
+  transition:
+    opacity 950ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--solutions-reveal-delay, 0ms);
+  backface-visibility: hidden;
+}
+
+[data-solutions-reveal="left"] {
+  transform:
+    perspective(1200px)
+    translate3d(-32px, 0, 0)
+    rotateY(3deg)
+    scale(0.985);
+  transform-origin: left center;
+}
+
+[data-solutions-reveal="right"] {
+  transform:
+    perspective(1200px)
+    translate3d(32px, 0, 0)
+    rotateY(-3deg)
+    scale(0.985);
+  transform-origin: right center;
+}
+
+[data-solutions-reveal="up"] {
+  transform:
+    perspective(1200px)
+    translate3d(0, 36px, 0)
+    rotateX(3deg)
+    scale(0.985);
+  transform-origin: center bottom;
+}
+
+[data-solutions-reveal].solutions-is-visible {
+  opacity: 1;
+  transform:
+    perspective(1200px)
+    translate3d(0, 0, 0)
+    rotateX(0)
+    rotateY(0)
+    scale(1);
+}
+
+[data-solutions-reveal]:not(.solutions-is-visible) {
+  will-change: opacity, transform;
+}
+
+[data-solutions-reveal].solutions-is-visible {
+  will-change: auto;
+}
+
+
+/* =========================================
+   SOLUTIONS — IMAGE FRAME
+========================================= */
+
+[data-solutions-image] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #e9e7e2;
+  transition:
+    box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Initial image scale */
+
+[data-solutions-image] img {
+  transform: scale(1.055);
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition:
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+}
+
+/* Settle image when the card enters the viewport */
+
+[data-solutions-reveal].solutions-is-visible
+[data-solutions-image] img {
+  transform: scale(1);
+}
+
+
+/* =========================================
+   SOLUTIONS — IMAGE WIPE REVEAL
+========================================= */
+
+[data-solutions-image]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: #e9e7e2;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 1100ms cubic-bezier(0.77, 0, 0.18, 1);
+  transition-delay:
+    calc(var(--solutions-reveal-delay, 0ms) + 100ms);
+}
+
+[data-solutions-reveal].solutions-is-visible
+[data-solutions-image]::before {
+  transform: translate3d(101%, 0, 0);
+}
+
+
+/* =========================================
+   SOLUTIONS — DIAGONAL SHINE EFFECT
+========================================= */
+
+[data-solutions-image]::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -65%;
+  z-index: 4;
+  width: 42%;
+  pointer-events: none;
+
+  /* Bright diagonal reflection */
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(255 255 255 / 5%) 20%,
+    rgb(255 255 255 / 20%) 38%,
+    rgb(255 255 255 / 60%) 50%,
+    rgb(255 255 255 / 20%) 62%,
+    rgb(255 255 255 / 5%) 80%,
+    transparent 100%
+  );
+
+  opacity: 0;
+  transform: translate3d(0, 0, 0) skewX(-20deg);
+
+  transition:
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease;
+}
+
+
+/* =========================================
+   SOLUTIONS — PREMIUM IMAGE HOVER
+========================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  [data-solutions-image]:hover {
+    box-shadow: 0 14px 32px rgb(0 0 0 / 12%);
+  }
+
+  /* Gentle image zoom */
+
+  [data-solutions-image]:hover img {
+    transform: scale(1.04);
+    filter: brightness(0.96);
+  }
+
+  /* Sweep the shine from left to right */
+
+  [data-solutions-image]:hover::after {
+    opacity: 1;
+    transform: translate3d(390%, 0, 0) skewX(-20deg);
+  }
+}
+
+
+/* =========================================
+   SOLUTIONS — CARD TEXT MICRO-INTERACTION
+========================================= */
+
+[data-solutions-reveal] > div {
+  transition: border-color 450ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-solutions-reveal].group\/project:hover
+  > div + div {
+    border-color: rgb(0 0 0 / 12%);
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY — REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-solutions-reveal],
+  [data-solutions-image],
+  [data-solutions-image] img,
+  [data-solutions-image]::before,
+  [data-solutions-image]::after {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  [data-solutions-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-solutions-image] img {
+    transform: none;
+    filter: none;
+  }
+
+  [data-solutions-image]::before,
+  [data-solutions-image]::after {
+    display: none;
+  }
+
+  [data-solutions-image] {
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,314 @@
+
+/* =========================================
+   SERVICES — CINEMATIC SCROLL REVEAL
+========================================= */
+
+[data-service-reveal] {
+  opacity: 0;
+  transition:
+    opacity 950ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--service-reveal-delay, 0ms);
+  backface-visibility: hidden;
+}
+
+[data-service-reveal="up"] {
+  transform:
+    perspective(1100px)
+    translate3d(0, 36px, 0)
+    rotateX(4deg)
+    scale(0.985);
+  transform-origin: center bottom;
+}
+
+[data-service-reveal="left"] {
+  transform:
+    perspective(1100px)
+    translate3d(-30px, 0, 0)
+    rotateY(3deg)
+    scale(0.985);
+}
+
+[data-service-reveal="right"] {
+  transform:
+    perspective(1100px)
+    translate3d(30px, 0, 0)
+    rotateY(-3deg)
+    scale(0.985);
+}
+
+[data-service-reveal].service-is-visible {
+  opacity: 1;
+  transform:
+    perspective(1100px)
+    translate3d(0, 0, 0)
+    rotateX(0)
+    rotateY(0)
+    scale(1);
+}
+
+[data-service-reveal]:not(.service-is-visible) {
+  will-change: opacity, transform;
+}
+
+[data-service-reveal].service-is-visible {
+  will-change: auto;
+}
+
+
+/* =========================================
+   SERVICES — TEXT CARD ANIMATIONS
+========================================= */
+
+[data-service-card] {
+  position: relative;
+  isolation: isolate;
+  transition:
+    box-shadow 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Fine accent line */
+
+[data-service-card]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(0 0 0 / 24%),
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+[data-service-card] > div,
+[data-service-card] > p,
+[data-service-card] > a {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Staggered content entrance */
+
+[data-service-card].service-is-visible > div {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: calc(var(--service-reveal-delay, 0ms) + 100ms);
+}
+
+[data-service-card].service-is-visible > p {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: calc(var(--service-reveal-delay, 0ms) + 200ms);
+}
+
+[data-service-card].service-is-visible > a {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: calc(var(--service-reveal-delay, 0ms) + 300ms);
+}
+
+[data-service-card].service-is-visible::before {
+  transform: scaleX(1);
+  transition-delay: calc(var(--service-reveal-delay, 0ms) + 150ms);
+}
+
+/* Text card hover */
+
+@media (hover: hover) and (pointer: fine) {
+  [data-service-card].service-is-visible:hover {
+    translate: 0 -4px;
+    box-shadow: 0 18px 42px rgb(0 0 0 / 7%);
+  }
+
+  [data-service-card]:hover::before {
+    transform: scaleX(1);
+    transition-delay: 0ms;
+  }
+}
+
+
+/* =========================================
+   SERVICES — CINEMATIC IMAGE FRAME
+========================================= */
+
+[data-service-image] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #e9e7e2;
+  transition:
+    box-shadow 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Initial zoom */
+
+[data-service-image] .service-image {
+  transform: scale(1.07);
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition:
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+}
+
+/* Image settles when revealed */
+
+[data-service-image].service-is-visible .service-image {
+  transform: scale(1);
+}
+
+
+/* =========================================
+   SERVICES — IMAGE WIPE ENTRANCE
+========================================= */
+
+[data-service-image]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: #e9e7e2;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 1100ms cubic-bezier(0.77, 0, 0.18, 1);
+  transition-delay: var(--service-reveal-delay, 0ms);
+}
+
+/* Curtain slides away */
+
+[data-service-image].service-is-visible::before {
+  transform: translate3d(101%, 0, 0);
+}
+
+
+/* =========================================
+   SERVICES — DIAGONAL SHINE LAYER
+========================================= */
+
+[data-service-image]::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -65%;
+  z-index: 3;
+  width: 42%;
+  pointer-events: none;
+
+  /* Bright diagonal reflection */
+
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(255 255 255 / 5%) 20%,
+    rgb(255 255 255 / 20%) 38%,
+    rgb(255 255 255 / 60%) 50%,
+    rgb(255 255 255 / 20%) 62%,
+    rgb(255 255 255 / 5%) 80%,
+    transparent 100%
+  );
+
+  opacity: 0;
+  transform: translate3d(0, 0, 0) skewX(-20deg);
+  transition:
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease;
+}
+
+
+/* =========================================
+   SERVICES — PREMIUM IMAGE HOVER
+========================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  /* Soft elevation */
+
+  [data-service-image]:hover {
+    box-shadow: 0 14px 32px rgb(0 0 0 / 12%);
+  }
+
+  /* Gentle zoom and contrast */
+
+  [data-service-image]:hover .service-image {
+    transform: scale(1.04);
+    filter: brightness(0.96);
+  }
+
+  /* Sweep shine from left to right */
+
+  [data-service-image]:hover::after {
+    opacity: 1;
+    transform: translate3d(390%, 0, 0) skewX(-20deg);
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY — REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-service-reveal],
+  [data-service-card],
+  [data-service-card]::before,
+  [data-service-card] > div,
+  [data-service-card] > p,
+  [data-service-card] > a,
+  [data-service-image],
+  [data-service-image] .service-image,
+  [data-service-image]::before,
+  [data-service-image]::after {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  [data-service-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-service-card] {
+    translate: none;
+    box-shadow: none;
+  }
+
+  [data-service-card] > div,
+  [data-service-card] > p,
+  [data-service-card] > a {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-service-card]::before {
+    transform: none;
+  }
+
+  [data-service-image] .service-image {
+    transform: none;
+    filter: none;
+  }
+
+  [data-service-image]::before,
+  [data-service-image]::after {
+    display: none;
+  }
+
+  [data-service-image] {
+    box-shadow: none;
+  }
+}

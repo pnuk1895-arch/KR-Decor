@@ -1,7 +1,7 @@
-
 "use client";
 
-import "../../../style/Solution1.css"
+import "../../../style/Solution1.css";
+
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-react";
 const solutions = [
   {
     number: "01",
-    title: `Custom culinary spaces tailored for your modern lifestyle.`,
+    title: "Custom culinary spaces tailored for your modern lifestyle.",
     image: "/Images/Solutions/Image1.webp",
     alt: "Luxury modern bedroom interior",
     href: "/services/modular-wardrobes",
@@ -48,10 +48,19 @@ export default function SolutionsSection1() {
 
     if (!section) return;
 
-    const elements = section.querySelectorAll("[data-reveal]");
+    const elements = Array.from(
+      section.querySelectorAll("[data-reveal]")
+    );
 
-    // Keep content visible for users who prefer reduced motion.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    // Show everything immediately when reduced motion is preferred.
+    if (
+      prefersReducedMotion.matches ||
+      typeof IntersectionObserver === "undefined"
+    ) {
       elements.forEach((element) => {
         element.classList.add("is-visible");
       });
@@ -59,52 +68,66 @@ export default function SolutionsSection1() {
       return;
     }
 
+    const isMobile = window.matchMedia(
+      "(max-width: 767px)"
+    ).matches;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
           const element = entry.target;
-          const delay = Number(element.dataset.revealDelay || 0);
 
-          element.style.setProperty(
-            "--reveal-delay",
-            `${delay * 140}ms`
-          );
+          if (entry.isIntersecting) {
+            // Set a responsive stagger delay.
+            const delayIndex = Number(
+              element.dataset.revealDelay || 0
+            );
 
-          element.classList.add("is-visible");
+            const delayDuration = isMobile ? 90 : 130;
 
-          // Each element animates only once.
-          observer.unobserve(element);
+            element.style.setProperty(
+              "--reveal-delay",
+              `${delayIndex * delayDuration}ms`
+            );
+
+            // Reveal when entering the viewport.
+            element.classList.add("is-visible");
+          } else {
+            // Reset when leaving the viewport.
+            // This makes the animation replay on the next entry.
+            element.classList.remove("is-visible");
+          }
         });
       },
       {
         threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
+        rootMargin: "0px 0px -35px 0px",
       }
     );
 
-    elements.forEach((element) => observer.observe(element));
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[#f5f5f3] text-black"
+      className="solution-section w-full bg-[#f5f5f3] text-black"
     >
       <div className="mx-auto max-w-screen-2xl px-5 py-10 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
-
         {/* Heading */}
         <div className="flex flex-col items-start justify-between gap-7 border-b border-black/5 pb-5 sm:pb-6 md:flex-row md:items-end">
-
           <h2
             data-reveal="left"
             className="max-w-212.5 font-heading text-4xl font-normal leading-[1.08] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-6xl"
           >
-            {MainHeading.split("modern")[0]}
-            <br className="hidden sm:block" /> {MainHeading.split("for")[1]}
+            Smart interior solutions for
+            <br className="hidden sm:block" /> modern living
           </h2>
 
           <Link
@@ -125,15 +148,16 @@ export default function SolutionsSection1() {
               />
             </div>
 
-            <div className="h-0.5 w-full bg-black/30 transition-all duration-300 group-hover/link:bg-[#000000]" />
+            <div className="h-0.5 w-full bg-black/30 transition-all duration-300 group-hover/link:bg-black" />
           </Link>
         </div>
 
         {/* Solution cards */}
         <div className="mt-8 grid grid-cols-1 gap-x-4 gap-y-20 sm:mt-10 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-10 md:grid-cols-4 md:gap-x-4 lg:mt-12 lg:gap-x-5 xl:gap-x-6">
           {solutions.map((solution, index) => (
-            <div
+            <Link
               key={solution.number}
+              href={solution.href}
               data-reveal="up"
               data-reveal-delay={index}
               className="group/card block min-w-0"
@@ -141,19 +165,20 @@ export default function SolutionsSection1() {
               {/* Image */}
               <div
                 data-solution-image
-                className="relative aspect-square w-full overflow-hidden bg-neutral-200 sm:aspect-square h-64 md:h-80 md:aspect-3/4 lg:aspect-3/4"
+                className="relative h-64 aspect-square w-full overflow-hidden bg-neutral-200 sm:aspect-square md:aspect-3/4 md:h-80 lg:aspect-3/4"
               >
                 <Image
                   src={solution.image}
                   alt={solution.alt}
-                  loading="eager"
                   fill
+                  priority={index === 0}
                   sizes="(max-width: 639px) 90vw, (max-width: 767px) 44vw, (max-width: 1023px) 22vw, 24vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-105"
+                  className="object-cover"
                 />
 
-                {/* Existing hover overlay */}
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover/card:bg-black/10" />
+                {/* Cinematic dark overlay */}
+                <div className="solution-image-overlay absolute inset-0 bg-black/0 transition-colors duration-500" />
+
               </div>
 
               {/* Card details */}
@@ -163,13 +188,12 @@ export default function SolutionsSection1() {
                 </span>
 
                 <p className="max-w-33 text-right text-[12px] font-semibold leading-[1.6] text-neutral-500/80 transition-colors duration-300 group-hover/card:text-black lg:max-w-30 lg:text-[11px]">
-                  {`${solution.title}`}
+                  {solution.title}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
-
       </div>
     </section>
   );

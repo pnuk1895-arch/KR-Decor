@@ -1,0 +1,284 @@
+/* =========================================
+   OUR TEAM — SCROLL REVEAL
+========================================= */
+
+.our-teams [data-team-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+
+  transition:
+    opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: var(--team-reveal-delay, 0ms);
+}
+
+/* Heading enters from the left */
+.our-teams [data-team-reveal="left"] {
+  transform: translate3d(-34px, 0, 0);
+}
+
+/* Description and CTA enter from the right */
+.our-teams [data-team-reveal="right"] {
+  transform: translate3d(30px, 0, 0);
+}
+
+/* Team card entrance */
+.our-teams [data-team-reveal="card"] {
+  transform: translate3d(0, 38px, 0) scale(0.985);
+  transform-origin: center bottom;
+}
+
+/* Visible state */
+.our-teams [data-team-reveal].team-is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* =========================================
+   TEAM IMAGE — DEPTH AND ZOOM
+========================================= */
+
+.our-teams [data-team-image] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f2f1ee;
+
+  transition:
+    box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.our-teams [data-team-image] img {
+  transform: scale(1.025);
+  transform-origin: center top;
+  backface-visibility: hidden;
+
+  transition:
+    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+}
+
+/* Smooth image entrance */
+.our-teams
+  [data-team-reveal="card"].team-is-visible
+  [data-team-image] img {
+  transform: scale(1);
+  filter: brightness(1);
+}
+
+/* =========================================
+   CINEMATIC LIGHTING
+========================================= */
+
+.our-teams [data-team-image]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgb(255 255 255 / 16%) 0%,
+      transparent 40%,
+      rgb(0 0 0 / 24%) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgb(0 0 0 / 12%),
+      transparent 45%
+    );
+
+  opacity: 0;
+
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================
+   MOVING LIGHT SWEEP
+========================================= */
+
+.our-teams [data-team-image]::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -75%;
+  z-index: 2;
+
+  width: 44%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(255 255 255 / 6%) 25%,
+    rgb(255 255 255 / 34%) 50%,
+    rgb(255 255 255 / 6%) 75%,
+    transparent 100%
+  );
+
+  transform: skewX(-18deg) translateX(0);
+  opacity: 0;
+
+  transition:
+    transform 1050ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease;
+}
+
+/* =========================================
+   DESKTOP — PREMIUM HOVER
+========================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .our-teams .team-member:hover [data-team-image] {
+    box-shadow: 0 22px 45px rgb(0 0 0 / 13%);
+  }
+
+  .our-teams
+    .team-member:hover
+    [data-team-image] img {
+    transform: scale(1.065);
+    filter: brightness(0.95) saturate(1.04);
+  }
+
+  .our-teams
+    .team-member:hover
+    [data-team-image]::after {
+    opacity: 1;
+  }
+
+  .our-teams
+    .team-member:hover
+    [data-team-image]::before {
+    opacity: 1;
+    transform: skewX(-18deg) translateX(420%);
+  }
+
+  .our-teams
+    .team-member:hover
+    .team-member-details h3 {
+    transform: translateX(4px);
+    color: #111;
+  }
+
+  .our-teams .team-member:hover .team-image-indicator {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   TEAM DETAILS
+========================================= */
+
+.our-teams .team-member-details h3 {
+  transition:
+    color 350ms ease,
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.our-teams .team-image-indicator {
+  transition:
+    opacity 350ms ease,
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================
+   CONSULTATION BANNER
+========================================= */
+
+.our-teams .team-consultation {
+  transition:
+    background-color 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.our-teams .team-consultation-link {
+  transition:
+    color 300ms ease,
+    border-color 300ms ease,
+    gap 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.our-teams .team-consultation-link svg {
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .our-teams .team-consultation-link:hover {
+    gap: 18px;
+    color: #111;
+  }
+
+  .our-teams .team-consultation-link:hover svg {
+    transform: translateX(5px);
+  }
+}
+
+/* =========================================
+   KEYBOARD ACCESSIBILITY
+========================================= */
+
+.our-teams a:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 5px;
+}
+
+/* =========================================
+   MOBILE — REFINED REVEAL
+========================================= */
+
+@media (max-width: 767px) {
+  .our-teams [data-team-reveal] {
+    transition-duration: 600ms, 700ms;
+  }
+
+  .our-teams [data-team-image]::before {
+    display: none;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .our-teams [data-team-reveal],
+  .our-teams [data-team-reveal].team-is-visible,
+  .our-teams [data-team-image],
+  .our-teams [data-team-image] img,
+  .our-teams [data-team-image]::before,
+  .our-teams [data-team-image]::after,
+  .our-teams .team-member-details h3,
+  .our-teams .team-image-indicator,
+  .our-teams .team-consultation,
+  .our-teams .team-consultation-link,
+  .our-teams .team-consultation-link svg {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .our-teams [data-team-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .our-teams [data-team-image] img {
+    transform: none;
+    filter: none;
+  }
+
+  .our-teams [data-team-image]::before,
+  .our-teams [data-team-image]::after {
+    display: none;
+  }
+
+  .our-teams .team-image-indicator {
+    opacity: 1;
+    transform: none;
+  }
+}

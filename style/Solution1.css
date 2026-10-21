@@ -1,6 +1,78 @@
+/* =========================================
+   SOLUTIONS — PREMIUM SCROLL REVEAL
+========================================= */
+
+.solution-section [data-reveal] {
+  --reveal-delay: 0ms;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition-property:
+    opacity,
+    transform,
+    filter,
+    visibility;
+
+  transition-duration:
+    850ms,
+    1000ms,
+    850ms,
+    0ms;
+
+  transition-timing-function:
+    cubic-bezier(0.16, 1, 0.3, 1),
+    cubic-bezier(0.16, 1, 0.3, 1),
+    cubic-bezier(0.16, 1, 0.3, 1),
+    linear;
+
+  transition-delay:
+    0ms,
+    0ms,
+    0ms,
+    1000ms;
+
+  will-change: opacity, transform, filter;
+}
+
+/* Heading enters from left */
+.solution-section [data-reveal="left"] {
+  transform: translate3d(-42px, 0, 0);
+  filter: blur(5px);
+}
+
+/* View More enters from right */
+.solution-section [data-reveal="right"] {
+  transform: translate3d(35px, 0, 0);
+  filter: blur(4px);
+}
+
+/* Cards enter from below */
+.solution-section [data-reveal="up"] {
+  transform: translate3d(0, 46px, 0) scale(0.975);
+  filter: blur(6px);
+  transform-origin: center bottom;
+}
+
+/* Visible state */
+.solution-section [data-reveal].is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+
+  transition-delay:
+    var(--reveal-delay),
+    var(--reveal-delay),
+    var(--reveal-delay),
+    0ms;
+}
 
 /* =========================================
-   SOLUTIONS — CINEMATIC IMAGE INTERACTION
+   IMAGE — CINEMATIC REVEAL
 ========================================= */
 
 [data-solution-image] {
@@ -8,26 +80,48 @@
   isolation: isolate;
   overflow: hidden;
   background: #e9e7e2;
+
   transform: translateZ(0);
+
   transition:
-    box-shadow 800ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 500ms ease;
 }
 
-/* =========================================
-   IMAGE — DEPTH AND SMOOTH ZOOM
-========================================= */
-
+/* Initial image scale */
 [data-solution-image] img {
-  transform: scale(1.001);
+  transform: scale(1.02);
   transform-origin: center center;
   backface-visibility: hidden;
+
   transition:
-    transform 1200ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 800ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Reveal image with a subtle zoom-out */
+.solution-section
+  [data-reveal].is-visible
+  [data-solution-image]
+  img {
+  animation: solutionImageReveal 1100ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes solutionImageReveal {
+  0% {
+    transform: scale(1.085);
+    filter: brightness(0.84);
+  }
+
+  100% {
+    transform: scale(1.02);
+    filter: brightness(1);
+  }
+}
+
 /* =========================================
-   LAYER 1 — SOFT CINEMATIC LIGHTING
+   IMAGE — CINEMATIC LIGHTING
 ========================================= */
 
 [data-solution-image]::after {
@@ -36,63 +130,72 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
+
   background:
     linear-gradient(
       145deg,
-      rgb(255 255 255 / 18%) 0%,
-      transparent 35%,
-      rgb(0 0 0 / 18%) 100%
+      rgb(255 255 255 / 19%) 0%,
+      transparent 38%,
+      rgb(0 0 0 / 24%) 100%
     ),
     linear-gradient(
       to top,
-      rgb(0 0 0 / 10%),
-      transparent 40%
+      rgb(0 0 0 / 18%),
+      transparent 45%
     );
+
   opacity: 0;
+
   transition:
     opacity 800ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* =========================================
-   LAYER 2 — ANIMATED LIGHT SWEEP
+   IMAGE — MOVING LIGHT SWEEP
 ========================================= */
 
 [data-solution-image]::before {
   content: "";
   position: absolute;
+
   top: -20%;
   bottom: -20%;
   left: -75%;
+
   z-index: 2;
   width: 48%;
+
   pointer-events: none;
+
   background: linear-gradient(
     105deg,
     transparent 0%,
-    rgb(255 255 255 / 5%) 25%,
-    rgb(255 255 255 / 30%) 50%,
-    rgb(255 255 255 / 5%) 75%,
+    rgb(255 255 255 / 6%) 25%,
+    rgb(255 255 255 / 34%) 50%,
+    rgb(255 255 255 / 6%) 75%,
     transparent 100%
   );
+
   transform: skewX(-18deg) translateX(0);
   opacity: 0;
+
   transition:
     transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 300ms ease;
 }
 
 /* =========================================
-   DESKTOP — PREMIUM HOVER
+   IMAGE — HOVER INTERACTION
 ========================================= */
 
 @media (hover: hover) and (pointer: fine) {
   [data-solution-image]:hover {
-    box-shadow: 0 24px 50px rgb(0 0 0 / 13%);
+    box-shadow: 0 24px 50px rgb(0 0 0 / 15%);
   }
 
   [data-solution-image]:hover img {
-    transform: scale(1.065);
-    filter: brightness(0.94) saturate(1.04);
+    transform: scale(1.075);
+    filter: brightness(0.94) saturate(1.06);
   }
 
   [data-solution-image]:hover::after {
@@ -103,33 +206,82 @@
     opacity: 1;
     transform: skewX(-18deg) translateX(380%);
   }
+
+  .group\/card:hover .solution-image-overlay {
+    background-color: rgb(0 0 0 / 10%);
+  }
+
+  .group\/card:hover .solution-image-indicator {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================================
-   KEYBOARD ACCESSIBILITY
+   ACCESSIBILITY — KEYBOARD
 ========================================= */
 
-[data-solution-image]:focus-within {
-  outline: 2px solid currentColor;
+.solution-section a:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 5px;
+}
+
+.solution-section a:focus-visible [data-solution-image] {
+  outline: 2px solid #111;
   outline-offset: 4px;
 }
 
 /* =========================================
-   ACCESSIBILITY — REDUCED MOTION
+   RESPONSIVE — MOBILE
+========================================= */
+
+@media (max-width: 767px) {
+  .solution-section [data-reveal="up"] {
+    transform: translate3d(0, 28px, 0) scale(0.985);
+    filter: blur(3px);
+  }
+
+  [data-solution-image]::before {
+    display: none;
+  }
+
+  [data-solution-image]::after {
+    transition-duration: 400ms;
+  }
+
+  .solution-image-indicator {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
+  .solution-section [data-reveal],
+  .solution-section [data-reveal].is-visible,
   [data-solution-image],
   [data-solution-image] img,
   [data-solution-image]::before,
-  [data-solution-image]::after {
-    transition: none !important;
+  [data-solution-image]::after,
+  .solution-image-indicator {
     animation: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+
+  .solution-section [data-reveal] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    will-change: auto;
   }
 
   [data-solution-image] img {
     transform: none;
-    filter: none;
   }
 
   [data-solution-image]::before,
@@ -139,5 +291,10 @@
 
   [data-solution-image] {
     box-shadow: none;
+  }
+
+  .solution-image-indicator {
+    opacity: 1;
+    transform: none;
   }
 }

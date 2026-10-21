@@ -1,0 +1,216 @@
+/* =========================================
+   TERMS PAGE — FAQ-STYLE SCROLL REVEAL
+========================================= */
+
+/* Hide only after JavaScript initializes the observer.
+   Legal text remains visible if JavaScript is unavailable. */
+
+.terms-page.terms-motion-ready [data-terms-reveal] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Last updated introduction */
+.terms-page.terms-motion-ready [data-terms-reveal="intro"] {
+  transform: translate3d(0, 24px, 0);
+  filter: blur(3px);
+}
+
+/* Individual legal sections */
+.terms-page.terms-motion-ready [data-terms-reveal="article"] {
+  transform: translate3d(0, 36px, 0) scale(0.99);
+  filter: blur(4px);
+  transform-origin: center bottom;
+}
+
+/* Visible state */
+.terms-page.terms-motion-ready
+  [data-terms-reveal].terms-is-visible {
+  pointer-events: auto;
+
+  animation: termsSectionEnter 900ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    var(--terms-reveal-delay, 0ms) both;
+}
+
+/* FAQ-inspired entrance */
+@keyframes termsSectionEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0) scale(0.99);
+    filter: blur(4px);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+
+  82% {
+    transform: translate3d(0, -2px, 0) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+
+/* =========================================
+   LEGAL SECTIONS — SUBTLE HOVER
+========================================= */
+
+.terms-page .terms-article {
+  position: relative;
+
+  transition:
+    background-color 350ms ease,
+    padding-left 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.terms-page .terms-article-heading {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.terms-page .terms-article-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+
+  background-color: currentColor;
+
+  transform: scaleX(0);
+  transform-origin: left center;
+
+  transition:
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.terms-page .terms-article-description {
+  transition: color 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .terms-page .terms-article:hover {
+    background-color: rgb(0 0 0 / 0.012);
+    padding-left: 8px;
+  }
+
+  .terms-page .terms-article:hover .terms-article-heading::after {
+    transform: scaleX(1);
+  }
+
+  .terms-page
+    .terms-article:hover
+    .terms-article-description {
+    color: #525252;
+  }
+}
+
+
+/* =========================================
+   FIXED WHATSAPP CTA — PREMIUM INTERACTION
+========================================= */
+
+.terms-page .terms-whatsapp-cta {
+  transition:
+    box-shadow 400ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.terms-page .terms-whatsapp-icon {
+  transition:
+    background-color 300ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.terms-page .terms-whatsapp-arrow {
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease;
+}
+
+.terms-page .terms-whatsapp-label {
+  transition:
+    color 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .terms-page .terms-whatsapp-cta:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 12px 30px rgb(0 0 0 / 12%),
+      0 3px 8px rgb(0 0 0 / 5%);
+  }
+
+  .terms-page .terms-whatsapp-cta:hover .terms-whatsapp-icon {
+    background-color: #292929;
+    transform: scale(1.04);
+  }
+
+  .terms-page .terms-whatsapp-cta:hover .terms-whatsapp-arrow {
+    transform: translate(2px, -2px);
+    color: #111;
+  }
+}
+
+
+/* =========================================
+   KEYBOARD ACCESSIBILITY
+========================================= */
+
+.terms-page a:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 4px;
+}
+
+
+/* =========================================
+   MOBILE — SIMPLIFIED INTERACTIONS
+========================================= */
+
+@media (max-width: 767px) {
+  .terms-page.terms-motion-ready
+    [data-terms-reveal="article"] {
+    transform: translate3d(0, 26px, 0);
+  }
+
+  .terms-page .terms-article {
+    transition-duration: 250ms, 250ms;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .terms-page [data-terms-reveal],
+  .terms-page [data-terms-reveal].terms-is-visible,
+  .terms-page .terms-article,
+  .terms-page .terms-article-heading::after,
+  .terms-page .terms-article-description,
+  .terms-page .terms-whatsapp-cta,
+  .terms-page .terms-whatsapp-icon,
+  .terms-page .terms-whatsapp-arrow,
+  .terms-page .terms-whatsapp-label {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+
+  .terms-page [data-terms-reveal] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+}

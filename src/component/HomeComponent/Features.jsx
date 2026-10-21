@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -52,11 +51,17 @@ export default function FAQSection() {
 
     if (!section) return;
 
-    const elements = section.querySelectorAll("[data-faq-reveal]");
+    const heading = section.querySelector('[data-faq-reveal="left"]');
 
-    const showAll = () => {
-      elements.forEach((element) => {
-        element.classList.add("faq-is-visible");
+    const questions = Array.from(
+      section.querySelectorAll("[data-faq-item]")
+    );
+
+    const revealEverything = () => {
+      heading?.classList.add("faq-is-visible");
+
+      questions.forEach((question) => {
+        question.classList.add("faq-is-visible");
       });
     };
 
@@ -64,36 +69,71 @@ export default function FAQSection() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       typeof IntersectionObserver === "undefined"
     ) {
-      showAll();
+      revealEverything();
       return;
     }
 
-    const observer = new IntersectionObserver(
+    // Reveal the heading when it enters the viewport.
+    const headingObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("faq-is-visible");
+        headingObserver.unobserve(entry.target);
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -35px 0px",
+      }
+    );
+
+    if (heading) {
+      headingObserver.observe(heading);
+    }
+
+    // Observe every question separately.
+    const questionObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          const element = entry.target;
-          const delay = Number(element.dataset.faqDelay || 0);
-
-          element.style.setProperty(
-            "--faq-reveal-delay",
-            `${delay * 100}ms`
+        const visibleQuestions = entries
+          .filter(
+            (entry) =>
+              entry.isIntersecting &&
+              !entry.target.classList.contains("faq-is-visible")
+          )
+          .sort(
+            (a, b) =>
+              a.boundingClientRect.top - b.boundingClientRect.top
           );
 
-          element.classList.add("faq-is-visible");
-          observer.unobserve(element);
+        visibleQuestions.forEach((entry, index) => {
+          const question = entry.target;
+
+          // Stagger questions entering together.
+          question.style.setProperty(
+            "--faq-reveal-delay",
+            `${index * 140}ms`
+          );
+
+          question.classList.add("faq-is-visible");
+
+          // Prevent the question from animating again.
+          questionObserver.unobserve(question);
         });
       },
       {
         threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
+        rootMargin: "0px 0px -50px 0px",
       }
     );
 
-    elements.forEach((element) => observer.observe(element));
+    questions.forEach((question) => {
+      questionObserver.observe(question);
+    });
 
-    return () => observer.disconnect();
+    return () => {
+      headingObserver.disconnect();
+      questionObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -103,14 +143,14 @@ export default function FAQSection() {
     >
       <div className="mx-auto w-full max-w-screen-2xl px-5 py-16 sm:px-8 sm:py-20 md:px-10 lg:px-12 lg:py-24 xl:px-18">
         <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-5">
-
-          {/* Left: FAQ heading and description */}
+          {/* LEFT: HEADING */}
           <div
             data-faq-reveal="left"
             className="col-span-2 min-w-0 md:translate-y-1/2 md:self-start"
           >
             <h2 className="font-heading text-4xl font-normal leading-[1.12] tracking-[-0.035em] sm:text-5xl lg:text-6xl">
               {MainHeading.split(" ")[0]}
+
               <span className="md:block">
                 {MainHeading.split(" ").slice(1).join(" ")}
               </span>
@@ -121,7 +161,7 @@ export default function FAQSection() {
             </p>
           </div>
 
-          {/* Right: FAQ accordion */}
+          {/* RIGHT: FAQ QUESTIONS */}
           <div className="col-span-3 min-w-0">
             <div className="border-t border-neutral-200">
               {faqs.map((faq, index) => {
@@ -132,7 +172,6 @@ export default function FAQSection() {
                   <article
                     key={faq.question}
                     data-faq-reveal="up"
-                    data-faq-delay={index}
                     data-faq-item
                     data-faq-open={isOpen ? "true" : "false"}
                     className="border-b border-neutral-100"
@@ -172,11 +211,11 @@ export default function FAQSection() {
                       </span>
                     </button>
 
-                    {/* Animated answer panel */}
+                    {/* ANSWER ACCORDION */}
                     <div
                       id={answerId}
                       aria-hidden={!isOpen}
-                      className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isOpen
+                      className={`faq-answer-panel grid ${isOpen
                           ? "grid-rows-[1fr] opacity-100"
                           : "grid-rows-[0fr] opacity-0"
                         }`}
@@ -184,10 +223,7 @@ export default function FAQSection() {
                       <div className="min-h-0 overflow-hidden">
                         <p
                           data-faq-answer
-                          className={`max-w-3xl pb-6 pr-7 text-sm leading-7 tracking-[0.01em] text-neutral-500 transition-transform duration-500 ease-in-out sm:pb-7 sm:text-base ${isOpen
-                              ? "translate-y-0"
-                              : "-translate-y-2"
-                            }`}
+                          className="max-w-3xl pb-6 pr-7 text-sm leading-7 tracking-[0.01em] text-neutral-500 sm:pb-7 sm:text-base"
                         >
                           {faq.answer}
                         </p>

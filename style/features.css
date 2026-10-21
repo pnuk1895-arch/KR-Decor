@@ -1,138 +1,66 @@
-
 /* =========================================
-   FAQ — CINEMATIC SCROLL REVEAL
+   FAQ — SCROLL REVEAL ANIMATIONS
 ========================================= */
 
-[data-faq-reveal] {
-  opacity: 0;
-  transition:
-    opacity 850ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 950ms cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: var(--faq-reveal-delay, 0ms);
-  backface-visibility: hidden;
-}
-
-[data-faq-reveal="left"] {
-  transform: translate3d(-28px, 0, 0);
-}
-
+/* Initial state for heading and questions */
+[data-faq-reveal="left"],
 [data-faq-reveal="up"] {
-  transform: translate3d(0, 26px, 0);
-}
-
-[data-faq-reveal].faq-is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-
-/* =========================================
-   FAQ — CLEAN INTERACTIVE ROWS
-========================================= */
-
-[data-faq-item] {
-  position: relative;
-  transition: background-color 400ms ease;
-}
-
-/* Ensure no left accent rail appears */
-
-[data-faq-item]::before {
-  content: none !important;
-}
-
-/* Question interaction */
-
-[data-faq-trigger] {
-  position: relative;
-  isolation: isolate;
-}
-
-/* Animated bottom underline */
-
-[data-faq-trigger]::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  background: rgb(0 0 0 / 18%);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-[data-faq-item][data-faq-open="true"] [data-faq-trigger]::after {
-  transform: scaleX(1);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [data-faq-item]:hover {
-    background-color: rgb(0 0 0 / 0.012);
-  }
-
-  [data-faq-trigger]:hover::after {
-    transform: scaleX(1);
-  }
-}
-
-/* Accessible keyboard focus */
-
-[data-faq-trigger]:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-}
-
-
-/* =========================================
-   FAQ — SMOOTH ACCORDION EXPANSION
-========================================= */
-
-/* Keep the existing grid-based accordion animation */
-
-[id^="faq-answer-"] {
-  transition:
-    grid-template-rows 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 450ms ease;
-}
-
-/* Remove the old translate utility from the answer animation */
-
-[data-faq-answer] {
   opacity: 0;
-  transform: translate3d(0, 12px, 0) scale(0.99);
-  filter: blur(3px);
-  transform-origin: top left;
-  transition:
-    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 750ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 650ms ease;
+  will-change: opacity, transform, filter;
 }
 
-/* Open answer */
-
-[data-faq-item][data-faq-open="true"] [data-faq-answer] {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-  filter: blur(0);
-  transition-delay: 100ms;
-  animation: faq-answer-settle 750ms
-    cubic-bezier(0.22, 1, 0.36, 1) both;
+/* Heading starts from the left */
+[data-faq-reveal="left"] {
+  transform: translate3d(-35px, 0, 0);
 }
 
-@keyframes faq-answer-settle {
+/* Each question starts lower and slightly blurred */
+[data-faq-reveal="up"] {
+  transform: translate3d(0, 40px, 0) scale(0.975);
+  filter: blur(5px);
+  transform-origin: center bottom;
+}
+
+/* Heading animation */
+[data-faq-reveal="left"].faq-is-visible {
+  animation: faqHeadingEnter 850ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Each question animates independently */
+[data-faq-reveal="up"].faq-is-visible {
+  animation: faqQuestionEnter 900ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    var(--faq-reveal-delay, 0ms) both;
+}
+
+@keyframes faqHeadingEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(-35px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes faqQuestionEnter {
   0% {
     opacity: 0;
-    transform: translate3d(0, 14px, 0) scale(0.99);
-    filter: blur(3px);
+    transform: translate3d(0, 40px, 0) scale(0.975);
+    filter: blur(5px);
   }
 
   65% {
     opacity: 1;
-    transform: translate3d(0, -1px, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
     filter: blur(0);
+  }
+
+  82% {
+    transform: translate3d(0, -3px, 0) scale(1);
   }
 
   100% {
@@ -144,9 +72,98 @@
 
 
 /* =========================================
-   FAQ — ANIMATED ANSWER LABEL
+   FAQ — HOVER INTERACTIONS
 ========================================= */
 
+[data-faq-item] {
+  position: relative;
+  background-color: transparent;
+  transition: background-color 400ms ease;
+}
+
+[data-faq-trigger] {
+  position: relative;
+}
+
+/* Animated underline */
+[data-faq-trigger]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #111;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 550ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+[data-faq-item][data-faq-open="true"] [data-faq-trigger]::after {
+  transform: scaleX(1);
+}
+
+/* Question text movement */
+[data-faq-trigger] > span:first-child {
+  transition:
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 350ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-faq-item]:hover {
+    background-color: rgb(0 0 0 / 0.025);
+  }
+
+  [data-faq-trigger]:hover > span:first-child {
+    transform: translateX(9px);
+    color: #000;
+  }
+
+  [data-faq-trigger]:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+[data-faq-trigger]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+[data-faq-item][data-faq-open="true"] {
+  background-color: rgb(0 0 0 / 0.012);
+}
+
+
+/* =========================================
+   FAQ — ACCORDION ANSWER ANIMATION
+========================================= */
+
+.faq-answer-panel {
+  transition:
+    grid-template-rows 650ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 450ms ease;
+}
+
+[data-faq-answer] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  filter: blur(2px);
+  transition:
+    opacity 450ms ease,
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 450ms ease;
+}
+
+[data-faq-item][data-faq-open="true"] [data-faq-answer] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+  transition-delay: 80ms;
+}
+
+/* Answer label */
 [data-faq-answer]::before {
   content: "ANSWER";
   display: table;
@@ -157,18 +174,15 @@
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: 0.16em;
-
-  /* Fine underline draws beneath the label */
   background-image: linear-gradient(
     to right,
     rgb(0 0 0 / 45%),
     rgb(0 0 0 / 10%)
   );
-  background-repeat: no-repeat;
   background-position: left bottom;
+  background-repeat: no-repeat;
   background-size: 0% 1px;
-  transition: background-size 650ms
-    cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-size 650ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-faq-item][data-faq-open="true"] [data-faq-answer]::before {
@@ -178,34 +192,20 @@
 
 
 /* =========================================
-   FAQ — OPEN ITEM POLISH
-========================================= */
-
-[data-faq-item][data-faq-open="true"] {
-  background-color: rgb(0 0 0 / 0.008);
-}
-
-/* Keep answer clean: no inset shadow or left line */
-
-[data-faq-item][data-faq-open="true"] [data-faq-answer] {
-  box-shadow: none;
-  padding-left: 0;
-}
-
-
-/* =========================================
-   ACCESSIBILITY — REDUCED MOTION
+   FAQ — REDUCED MOTION ACCESSIBILITY
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   [data-faq-reveal],
+  [data-faq-reveal].faq-is-visible,
   [data-faq-item],
   [data-faq-trigger]::after,
-  [id^="faq-answer-"],
+  [data-faq-trigger] > span:first-child,
+  .faq-answer-panel,
   [data-faq-answer],
   [data-faq-answer]::before {
-    transition: none !important;
     animation: none !important;
+    transition: none !important;
     filter: none !important;
   }
 
@@ -215,11 +215,6 @@
   }
 
   [data-faq-answer] {
-    opacity: 1;
     transform: none;
-  }
-
-  [data-faq-answer]::before {
-    background-size: 100% 1px;
   }
 }

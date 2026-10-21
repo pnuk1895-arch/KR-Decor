@@ -1,0 +1,184 @@
+/* =========================================
+   CAREERS — SCROLL REVEAL
+========================================= */
+
+.career-contact [data-career-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+
+  transition:
+    opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: var(--career-reveal-delay, 0ms);
+}
+
+/* Main heading enters from the left */
+.career-contact [data-career-reveal="left"] {
+  transform: translate3d(-34px, 0, 0);
+}
+
+/* Reveal state */
+.career-contact [data-career-reveal].career-is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Stagger form fields smoothly */
+.career-contact
+  [data-career-reveal].career-is-visible {
+  transition-delay: var(--career-reveal-delay, 0ms);
+}
+
+
+/* =========================================
+   FORM — PREMIUM FOCUS INTERACTION
+========================================= */
+
+.career-contact input:not([type="file"]),
+.career-contact textarea {
+  background-color: transparent;
+  transition:
+    border-color 350ms ease,
+    background-color 350ms ease,
+    box-shadow 350ms ease;
+}
+
+/* Underline-style inputs */
+.career-contact input:not([type="file"]):focus-visible {
+  border-bottom-color: #111;
+  box-shadow: 0 1px 0 rgb(0 0 0 / 8%);
+}
+
+/* Larger message field */
+.career-contact textarea:focus-visible {
+  border-color: #111;
+  box-shadow: 0 0 0 3px rgb(0 0 0 / 4%);
+}
+
+/* Placeholder transitions */
+.career-contact input::placeholder,
+.career-contact textarea::placeholder {
+  transition: color 250ms ease;
+}
+
+.career-contact input:focus::placeholder,
+.career-contact textarea:focus::placeholder {
+  color: #999;
+}
+
+/* Clear keyboard focus indicator */
+.career-contact input:focus-visible,
+.career-contact textarea:focus-visible,
+.career-contact button:focus-visible,
+.career-contact label[for="resume"]:focus-visible {
+  outline-offset: 4px;
+}
+
+
+/* =========================================
+   RESUME UPLOAD — INTERACTION
+========================================= */
+
+.career-contact .career-upload {
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+
+  transition:
+    border-color 350ms ease,
+    background-color 350ms ease,
+    box-shadow 350ms ease;
+}
+
+.career-contact .career-upload-icon {
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .career-contact .career-upload:hover {
+    border-color: #111;
+    background-color: #faf9f7;
+    box-shadow: 0 5px 18px rgb(0 0 0 / 3%);
+  }
+
+  .career-contact .career-upload:hover .career-upload-icon {
+    transform: translateY(-3px);
+    color: #111;
+  }
+}
+
+/* Keyboard users can navigate to the styled file label */
+.career-contact label[for="resume"]:focus-visible {
+  outline: 2px solid #111;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON — POLISHED MICRO-ANIMATION
+========================================= */
+
+.career-contact .career-submit {
+  position: relative;
+  transition:
+    color 300ms ease,
+    border-color 300ms ease,
+    gap 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.career-contact .career-submit-icon {
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .career-contact .career-submit:hover {
+    gap: 20px;
+    color: #111;
+  }
+
+  .career-contact .career-submit:hover .career-submit-icon {
+    transform: translateX(5px);
+  }
+}
+
+
+/* =========================================
+   MOBILE — NATURAL MOTION
+========================================= */
+
+@media (max-width: 767px) {
+  .career-contact [data-career-reveal] {
+    transition-duration: 600ms, 700ms;
+  }
+
+  .career-contact [data-career-reveal="left"] {
+    transform: translate3d(-20px, 0, 0);
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .career-contact [data-career-reveal],
+  .career-contact [data-career-reveal].career-is-visible,
+  .career-contact input,
+  .career-contact textarea,
+  .career-contact .career-upload,
+  .career-contact .career-upload-icon,
+  .career-contact .career-submit,
+  .career-contact .career-submit-icon {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .career-contact [data-career-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,205 @@
+
+/* =========================================
+   COMMON HERO — BASE VARIABLES
+========================================= */
+
+.common-hero-section {
+  --hero-pointer-x: 50%;
+  --hero-pointer-y: 50%;
+  --hero-parallax-x: 0px;
+  --hero-parallax-y: 0px;
+}
+
+
+/* =========================================
+   COMMON HERO — CINEMATIC IMAGE ENTRANCE
+========================================= */
+
+.common-hero-background {
+  opacity: 0;
+  transform: translate3d(0, 0, 0) scale(1.07);
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition:
+    opacity 1200ms ease,
+    transform 1600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.common-hero-is-visible .common-hero-background {
+  opacity: 1;
+  transform: translate3d(
+    var(--hero-parallax-x),
+    var(--hero-parallax-y),
+    0
+  ) scale(1.025);
+}
+
+/* Smooth parallax return */
+
+.common-hero-background {
+  transition:
+    opacity 1200ms ease,
+    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================
+   COMMON HERO — DARK OVERLAY ENTRANCE
+========================================= */
+
+.common-hero-overlay {
+  opacity: 0;
+  transition: opacity 1100ms ease;
+}
+
+.common-hero-is-visible .common-hero-overlay {
+  opacity: 1;
+}
+
+
+/* =========================================
+   COMMON HERO — AMBIENT CURSOR LIGHT
+========================================= */
+
+.common-hero-glow {
+  background: radial-gradient(
+    460px circle at var(--hero-pointer-x) var(--hero-pointer-y),
+    rgb(255 255 255 / 15%),
+    rgb(255 255 255 / 5%) 35%,
+    transparent 72%
+  );
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+.common-hero-section.hero-pointer-active .common-hero-glow {
+  opacity: 1;
+}
+
+
+/* =========================================
+   COMMON HERO — DIAGONAL SHINE
+========================================= */
+
+.common-hero-shine {
+  opacity: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgb(255 255 255 / 2%) 35%,
+    rgb(255 255 255 / 15%) 48%,
+    rgb(255 255 255 / 5%) 54%,
+    transparent 65%
+  );
+  background-repeat: no-repeat;
+  background-size: 45% 180%;
+  background-position: -150% center;
+  transition:
+    opacity 300ms ease,
+    background-position 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Sweep the reflection across on hover */
+
+@media (hover: hover) and (pointer: fine) {
+  .common-hero-section:hover .common-hero-shine {
+    opacity: 1;
+    background-position: 350% center;
+  }
+}
+
+
+/* =========================================
+   COMMON HERO — SCROLL REVEAL
+========================================= */
+
+[data-common-reveal] {
+  opacity: 0;
+  transition:
+    opacity 950ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  backface-visibility: hidden;
+}
+
+[data-common-reveal="title"] {
+  transform:
+    perspective(1100px)
+    translate3d(0, 28px, 0)
+    rotateX(2deg);
+  transform-origin: left bottom;
+  transition-delay: 120ms;
+}
+
+[data-common-reveal="description"] {
+  transform: translate3d(0, 20px, 0);
+  transition-delay: 320ms;
+}
+
+.common-hero-is-visible [data-common-reveal] {
+  opacity: 1;
+  transform:
+    perspective(1100px)
+    translate3d(0, 0, 0)
+    rotateX(0);
+}
+
+[data-common-reveal]:not(.common-hero-is-visible [data-common-reveal]) {
+  will-change: opacity, transform;
+}
+
+
+/* =========================================
+   COMMON HERO — RESPONSIVE POLISH
+========================================= */
+
+@media (max-width: 767px) {
+  .common-hero-background {
+    transform: scale(1.035);
+  }
+
+  .common-hero-is-visible .common-hero-background {
+    transform: scale(1);
+  }
+
+  /* Avoid pointer-only visual effects on touch */
+  .common-hero-glow,
+  .common-hero-shine {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY — REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .common-hero-background,
+  .common-hero-overlay,
+  .common-hero-glow,
+  .common-hero-shine,
+  [data-common-reveal] {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+
+  .common-hero-background {
+    opacity: 1;
+    transform: none;
+  }
+
+  .common-hero-overlay {
+    opacity: 1;
+  }
+
+  [data-common-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .common-hero-glow,
+  .common-hero-shine {
+    display: none;
+  }
+}

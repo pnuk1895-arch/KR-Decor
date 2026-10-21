@@ -1,0 +1,202 @@
+/* =========================================
+   GALLERY HEADING REVEAL
+========================================= */
+
+.interior-gallery [data-gallery-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+
+  transition:
+    opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.interior-gallery [data-gallery-reveal="title"] {
+  transform: translate3d(-30px, 0, 0);
+}
+
+.interior-gallery [data-gallery-reveal="description"] {
+  transform: translate3d(24px, 0, 0);
+}
+
+.interior-gallery
+  [data-gallery-reveal].gallery-is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+
+/* =========================================
+   REUSABLE INTERIOR CARD REVEAL
+========================================= */
+
+.interior-gallery-card {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(0.985);
+
+  transition:
+    opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  transition-delay: 0ms;
+}
+
+.interior-gallery-card.gallery-is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+
+  transition-delay: var(--gallery-reveal-delay, 0ms);
+}
+
+
+/* =========================================
+   IMAGE HOVER
+========================================= */
+
+.interior-gallery-card [data-gallery-image] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #efeeeb;
+
+  transition:
+    box-shadow 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.interior-gallery-card [data-gallery-image] img {
+  transform: scale(1.025);
+  transform-origin: center;
+  backface-visibility: hidden;
+
+  transition:
+    transform 950ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 650ms ease;
+}
+
+.interior-gallery-card.gallery-is-visible
+  [data-gallery-image] img {
+  transform: scale(1);
+  filter: brightness(1);
+}
+
+/* Soft lighting */
+.interior-gallery-card [data-gallery-image]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 14%),
+    transparent 45%,
+    rgb(0 0 0 / 20%)
+  );
+
+  opacity: 0;
+  transition: opacity 650ms ease;
+}
+
+/* Moving shine */
+.interior-gallery-card [data-gallery-image]::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -75%;
+  z-index: 2;
+  width: 44%;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgb(255 255 255 / 30%),
+    transparent
+  );
+
+  transform: skewX(-18deg);
+  opacity: 0;
+
+  transition:
+    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 250ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interior-gallery-card:hover [data-gallery-image] {
+    box-shadow: 0 20px 42px rgb(0 0 0 / 12%);
+  }
+
+  .interior-gallery-card:hover [data-gallery-image] img {
+    transform: scale(1.065);
+    filter: brightness(0.95) saturate(1.04);
+  }
+
+  .interior-gallery-card:hover [data-gallery-image]::after {
+    opacity: 1;
+  }
+
+  .interior-gallery-card:hover [data-gallery-image]::before {
+    opacity: 1;
+    transform: skewX(-18deg) translateX(420%);
+  }
+
+  .interior-gallery-card:hover [data-gallery-caption] {
+    color: #111;
+    transform: translateX(3px);
+  }
+}
+
+
+/* =========================================
+   CAPTION
+========================================= */
+
+.interior-gallery-card [data-gallery-caption] {
+  transition:
+    color 350ms ease,
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================
+   MOBILE AND REDUCED MOTION
+========================================= */
+
+@media (max-width: 767px) {
+  .interior-gallery-card [data-gallery-image]::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interior-gallery [data-gallery-reveal],
+  .interior-gallery-card,
+  .interior-gallery-card [data-gallery-image],
+  .interior-gallery-card [data-gallery-image] img,
+  .interior-gallery-card [data-gallery-image]::before,
+  .interior-gallery-card [data-gallery-image]::after,
+  .interior-gallery-card [data-gallery-caption] {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .interior-gallery [data-gallery-reveal],
+  .interior-gallery-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .interior-gallery-card [data-gallery-image] img {
+    transform: none;
+    filter: none;
+  }
+
+  .interior-gallery-card [data-gallery-image]::before,
+  .interior-gallery-card [data-gallery-image]::after {
+    display: none;
+  }
+}

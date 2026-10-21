@@ -1,0 +1,194 @@
+/* =========================================
+   SOCIAL LINKS — FAQ-STYLE SCROLL REVEAL
+========================================= */
+
+.social-links-section [data-social-reveal] {
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 450ms ease,
+    transform 450ms ease;
+}
+
+/* Heading starts from the left */
+.social-links-section [data-social-reveal="heading"] {
+  transform: translate3d(-35px, 0, 0);
+}
+
+/* Each row starts lower, smaller, and softly blurred */
+.social-links-section [data-social-reveal="row"] {
+  transform: translate3d(0, 42px, 0) scale(0.975);
+  filter: blur(5px);
+  transform-origin: center bottom;
+}
+
+/* Visible heading */
+.social-links-section
+  [data-social-reveal="heading"].social-is-visible {
+  opacity: 1;
+  pointer-events: auto;
+
+  animation: socialHeadingEnter 850ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Each social row animates independently */
+.social-links-section
+  [data-social-reveal="row"].social-is-visible {
+  opacity: 1;
+  pointer-events: auto;
+
+  animation: socialRowEnter 900ms
+    cubic-bezier(0.16, 1, 0.3, 1)
+    var(--social-reveal-delay, 0ms) both;
+}
+
+/* Heading animation */
+@keyframes socialHeadingEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(-35px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* FAQ-inspired question entrance */
+@keyframes socialRowEnter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 42px, 0) scale(0.975);
+    filter: blur(5px);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+
+  82% {
+    transform: translate3d(0, -3px, 0) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+
+/* =========================================
+   ROW HOVER — PREMIUM INTERACTION
+========================================= */
+
+.social-links-section .social-link-row {
+  background-color: transparent;
+
+  transition:
+    background-color 350ms ease,
+    border-color 350ms ease;
+}
+
+.social-links-section .social-link-name {
+  transition:
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    letter-spacing 400ms ease;
+}
+
+.social-links-section .social-link-handle {
+  transition:
+    opacity 350ms ease,
+    color 350ms ease,
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.social-links-section .social-link-arrow {
+  transition:
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .social-links-section .social-link-row:hover {
+    background-color: rgb(255 255 255 / 38%);
+    border-bottom-color: rgb(0 0 0 / 40%);
+  }
+
+  .social-links-section .social-link-row:hover .social-link-name {
+    transform: translateX(24px);
+    letter-spacing: 0.01em;
+  }
+
+  .social-links-section .social-link-row:hover .social-link-handle {
+    transform: translateX(16px);
+    color: #111;
+  }
+
+  .social-links-section .social-link-row:hover .social-link-arrow {
+    transform: translate3d(3px, -3px, 0) rotate(5deg);
+    color: #111;
+  }
+}
+
+
+/* =========================================
+   KEYBOARD ACCESSIBILITY
+========================================= */
+
+.social-links-section .social-link-row:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 4px;
+
+  /* Keep keyboard-focused links visible */
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  filter: none;
+  animation: none;
+}
+
+
+/* =========================================
+   MOBILE — GENTLER MOVEMENT
+========================================= */
+
+@media (max-width: 767px) {
+  .social-links-section [data-social-reveal="row"] {
+    transform: translate3d(0, 28px, 0) scale(0.99);
+  }
+
+  .social-links-section
+    [data-social-reveal="row"].social-is-visible {
+    animation-name: socialRowEnter;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .social-links-section [data-social-reveal],
+  .social-links-section [data-social-reveal].social-is-visible,
+  .social-links-section .social-link-row,
+  .social-links-section .social-link-name,
+  .social-links-section .social-link-handle,
+  .social-links-section .social-link-arrow {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+
+  .social-links-section [data-social-reveal] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}

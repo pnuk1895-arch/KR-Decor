@@ -1,5 +1,8 @@
+"use client";
 
-import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { useEffect, useRef } from "react";
+
+import "../../../style/Privacy/Privacy.css";
 
 const privacySections = [
     {
@@ -29,19 +32,96 @@ const privacySections = [
     },
 ];
 
-const HeadingContent=`Last updated: October 2026. This Privacy Policy governs the manner in which KR Decor collects, uses, and protects your information.`
+const HeadingContent =
+    "Last updated: October 2026. This Privacy Policy governs the manner in which KR Decor collects, uses, and protects your information.";
 
 export default function PrivacyPage() {
+    const pageRef = useRef(null);
+
+    useEffect(() => {
+        const page = pageRef.current;
+        if (!page) return;
+
+        const elements = Array.from(
+            page.querySelectorAll("[data-privacy-reveal]")
+        );
+
+        const revealAll = () => {
+            elements.forEach((element) => {
+                element.classList.add("privacy-is-visible");
+            });
+        };
+
+        // Keep content visible for reduced-motion users and
+        // browsers without IntersectionObserver support.
+        if (
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+            typeof IntersectionObserver === "undefined"
+        ) {
+            revealAll();
+            return;
+        }
+
+        // Enable animation styles only after JavaScript initializes.
+        page.classList.add("privacy-motion-ready");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entering = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort(
+                        (a, b) =>
+                            a.boundingClientRect.top - b.boundingClientRect.top
+                    );
+
+                // Stagger elements that enter together from top to bottom.
+                entering.forEach((entry, index) => {
+                    const element = entry.target;
+
+                    element.style.setProperty(
+                        "--privacy-reveal-delay",
+                        `${index * 110}ms`
+                    );
+
+                    element.classList.add("privacy-is-visible");
+                });
+
+                // Reset elements that leave the viewport so they replay.
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) {
+                        entry.target.classList.remove("privacy-is-visible");
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: "0px 0px -35px 0px",
+            }
+        );
+
+        elements.forEach((element) => {
+            observer.observe(element);
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <main className="w-full overflow-hidden bg-white text-neutral-900">
+        <main
+            ref={pageRef}
+            className="privacy-page w-full overflow-hidden bg-white text-neutral-900"
+        >
             {/* Privacy Policy Content */}
             <section
                 aria-label="Privacy policy"
                 className="mx-auto w-full max-w-screen-2xl px-5 py-12 sm:px-8 sm:pb-14 sm:pt-10 md:px-10 lg:px-12 lg:pb-16 lg:pt-12 xl:px-18"
             >
                 {/* Introduction */}
-                <div className="border-b border-neutral-100 pb-6 sm:pb-8">
-                    <p className="max-w-3xl text-sm leading-5 tracking-wide text-neutral-500 sm:text-sm sm:leading-6">
+                <div
+                    data-privacy-reveal="intro"
+                    className="border-b border-neutral-100 pb-6 sm:pb-8"
+                >
+                    <p className="max-w-3xl text-sm leading-5 tracking-wide text-neutral-500 sm:leading-6">
                         {HeadingContent}
                     </p>
                 </div>
@@ -49,13 +129,18 @@ export default function PrivacyPage() {
                 {/* Policy Sections */}
                 <div className="space-y-7 py-12 sm:space-y-9 sm:py-14 lg:space-y-10 lg:py-18">
                     {privacySections.map((section, index) => (
-                        <article key={section.title}>
-                            <h2 className="font-heading text-lg font-normal leading-snug text-neutral-900 sm:text-2xl">
+                        <article
+                            key={section.title}
+                            data-privacy-reveal="article"
+                            data-privacy-index={index}
+                            className="privacy-article"
+                        >
+                            <h2 className="privacy-article-heading font-heading text-lg font-normal leading-snug text-neutral-900 sm:text-2xl">
                                 <span className="mr-1">{index + 1}.</span>
                                 {section.title}
                             </h2>
 
-                            <p className="mt-3 max-w-6xl text-sm leading-5 tracking-wider text-neutral-500 sm:text-sm sm:leading-6 lg:text-base lg:leading-7">
+                            <p className="privacy-article-description mt-3 max-w-6xl text-sm leading-5 tracking-wider text-neutral-500 sm:leading-6 lg:text-base lg:leading-7">
                                 {section.description}
                             </p>
                         </article>
@@ -68,7 +153,6 @@ export default function PrivacyPage() {
                     className="border-t border-neutral-100"
                 />
             </section>
-
         </main>
     );
 }
